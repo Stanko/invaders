@@ -58,6 +58,7 @@ export const config = [
   {
     type: 'boolean',
     name: 'flip',
+    defaultValue: false,
     isRandomizationDisabled: true,
   },
   {
