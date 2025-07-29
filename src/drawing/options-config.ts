@@ -63,6 +63,7 @@ export const config = [
   {
     type: 'boolean',
     name: 'showGrid',
+    defaultValue: false,
     isRandomizationDisabled: true,
   },
 ] as const satisfies readonly TypedControlConfig[];
