@@ -135,7 +135,7 @@ export default async function render(options: Options): Promise<SVGElement> {
 
     // Commented out on purpose
     // It creates noise and it is only useful for the animation debugging
-    svgContent += getHornTentacleContent(invader.tentaclesAnimation, 'animation-tentacle', width);
+    svgContent += getHornTentacleContent(invader.tentaclesAnimation, 'animation-tentacle');
 
     svgContent += `</g>`;
   }

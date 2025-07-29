@@ -15,7 +15,8 @@
   "scripts": {
     "start": "vite",
     "build": "tsc && vite build && touch ./docs/.nojekyll && git add ./docs",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepare": "cp ./pre-commit ./.git/hooks/pre-commit && chmod +x ./.git/hooks/pre-commit"
   },
   "devDependencies": {
     "sass": "^1.89.2",
