@@ -16,6 +16,7 @@ body {
 
 .controls {
   margin-top: auto;
+  z-index: 1;
 
   @include breakpoints.lg {
     margin-top: 0;
@@ -26,6 +27,8 @@ body {
   width: 100%;
   flex-grow: 1;
   padding: 2rem;
+  position: sticky;
+  top: 0;
 
   max-height: 80vh;
   max-height: 80svh;

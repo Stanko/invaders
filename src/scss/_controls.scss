@@ -4,15 +4,11 @@
 .controls {
   --controls-font: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
 
-  --controls-main-l: var(--theme-l);
-  --controls-main-c: var(--theme-c);
-  --controls-main-h: var(--theme-h);
-
-  --controls-main-oklch: var(--controls-main-l) var(--controls-main-c) var(--controls-main-h);
+  --controls-main-oklch: var(--theme-l) var(--theme-c) var(--theme-h);
   --controls-main: oklch(var(--controls-main-oklch));
 
-  --controls-main-dark-l: calc(var(--controls-main-l) - 0.2);
-  --controls-main-dark-oklch: var(--controls-main-dark-l) var(--controls-main-c) var(--controls-main-h);
+  --controls-main-dark-l: calc(var(--theme-l) - 0.2);
+  --controls-main-dark-oklch: var(--controls-main-dark-l) var(--theme-c) var(--theme-h);
   --controls-main-dark: oklch(var(--controls-main-dark-oklch));
 
   --controls-gray-25: #f4f5f8;
@@ -47,10 +43,11 @@
   font-size: 0.875rem;
   width: 100%;
 
-  padding: 0.5rem;
+  padding: 0.5rem 0.75rem;
   gap: 0.5rem;
   border-top: 1px solid var(--controls-gray-100);
-  background: var(--controls-gray-25);
+  background: rgb(244 245 248 / 0.8); // --controls-gray-25 at 80%
+  backdrop-filter: blur(10px);
   scrollbar-width: thin;
   scrollbar-color: var(--controls-gray-400) transparent;
 
@@ -72,11 +69,10 @@
     flex-direction: column;
     align-items: unset;
     max-width: 24rem;
-    height: 100vh;
+    min-height: 100vh;
     overflow: auto;
     border-left: 1px solid var(--controls-gray-100);
     border-top: none;
-    padding: 0.5rem 0.75rem;
     position: sticky;
     top: 0;
   }
@@ -163,9 +159,6 @@
 }
 
 /* ----- Boolean ----- */
-
-.control--boolean .control-right {
-}
 
 .control--boolean input {
   opacity: 0;

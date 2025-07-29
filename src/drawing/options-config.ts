@@ -2,12 +2,6 @@ import type { TypedControlConfig } from '../controls/controls';
 
 export const config = [
   {
-    type: 'boolean',
-    name: 'debug',
-    defaultValue: false,
-    isRandomizationDisabled: true,
-  },
-  {
     type: 'range',
     name: 'size',
     defaultValue: 7,
@@ -70,6 +64,12 @@ export const config = [
   {
     type: 'boolean',
     name: 'showGrid',
+    defaultValue: false,
+    isRandomizationDisabled: true,
+  },
+  {
+    type: 'boolean',
+    name: 'debug',
     defaultValue: false,
     isRandomizationDisabled: true,
   },

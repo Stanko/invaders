@@ -223,8 +223,6 @@ export class Controls<Configs extends readonly TypedControlConfig[]> {
   updateFromHash = () => {
     const items = this.parseHash();
 
-    console.log('update from hash', this.getOptions());
-
     items.forEach((item) => {
       const { name, value } = item;
       const control = this.controlsMap[name];
