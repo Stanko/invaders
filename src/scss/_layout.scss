@@ -1,0 +1,54 @@
+@use 'breakpoints';
+
+body {
+}
+
+.app {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+
+  @include breakpoints.lg {
+    flex-direction: row;
+  }
+}
+
+.controls {
+  margin-top: auto;
+
+  @include breakpoints.lg {
+    margin-top: 0;
+  }
+}
+
+.drawing {
+  width: 100%;
+  flex-grow: 1;
+  padding: 2rem;
+
+  max-height: 80vh;
+  max-height: 80svh;
+
+  @include breakpoints.lg {
+    max-height: 100vh;
+    max-height: 100svh;
+  }
+}
+
+.drawing svg {
+  background: white;
+  margin: 0 auto;
+  max-width: 100%;
+
+  max-width: calc(var(--invader-width) * 1.25rem);
+}
+
+.hide-controls .controls {
+  display: none;
+}
+
+.hide-controls .drawing {
+  max-height: 100vh;
+  max-height: 100svh;
+}
