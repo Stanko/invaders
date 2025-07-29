@@ -149,16 +149,16 @@ export class Controls<Configs extends readonly TypedControlConfig[]> {
   }
 
   addToContainer = (container: HTMLElement) => {
-    this.controls.forEach((control) => {
-      container.appendChild(control.element);
-    });
-
     const randomizeButton = document.createElement('button');
     randomizeButton.classList.add('controls-randomize', 'controls-btn');
     randomizeButton.textContent = 'Randomize';
     randomizeButton.appendChild(createElement(Dice5));
     randomizeButton.addEventListener('click', this.randomize);
     container.appendChild(randomizeButton);
+
+    this.controls.forEach((control) => {
+      container.appendChild(control.element);
+    });
   };
 
   addListeners = () => {

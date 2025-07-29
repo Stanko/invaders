@@ -37,11 +37,17 @@ body {
 }
 
 .drawing svg {
+  --invader-pixel: 1rem;
+
   background: white;
   margin: 0 auto;
   max-width: 100%;
 
-  max-width: calc(var(--invader-width) * 1.25rem);
+  max-width: calc(var(--invader-width) * var(--invader-pixel));
+
+  @include breakpoints.lg {
+    --invader-pixel: 1.25rem;
+  }
 }
 
 .hide-controls .controls {
