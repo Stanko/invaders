@@ -46,18 +46,36 @@ svg {
 
 // Invader
 
-.debug .invader-pixel--l {
+@keyframes invader-animation {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.invader--animate {
+  overflow: hidden;
+}
+
+.invader--animate .invader-pixels {
+  animation: invader-animation 1000ms infinite steps(1);
+}
+
+.invader--debug .invader-pixel--l {
   filter: invert(0.4);
 }
 
-.invader-debug {
-  .invader-horn,
-  .invader-tentacle,
-  .invader-body {
-    fill: transparent;
+.invader-horn,
+.invader-tentacle,
+.invader-body {
+  fill: transparent;
 
-    &:hover {
-      fill: rgb(255 255 255 / 0.8);
-    }
+  &:hover {
+    fill: rgb(255 255 255 / 0.8);
   }
 }

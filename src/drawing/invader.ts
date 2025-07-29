@@ -14,12 +14,14 @@ export class Invader {
   height: number;
   width: number;
   grid: string[][];
+  gridAnimation: string[][];
 
   bodyCenter: Vec;
   body: Vec[] = [];
-  // eyes: TODO
   horns: HornTentacle[] = [];
+  hornsAnimation: HornTentacle[] = [];
   tentacles: HornTentacle[] = [];
+  tentaclesAnimation: HornTentacle[] = [];
 
   options: Options;
 
@@ -35,6 +37,7 @@ export class Invader {
     this.bodyCenter = new Vec(width / 2, Math.round(height * 0.4));
 
     this.grid = this.initGrid();
+    this.gridAnimation = this.initGrid();
 
     this.generate();
   }
@@ -55,29 +58,25 @@ export class Invader {
     return grid;
   }
 
-  fillGrid() {
-    const { grid, body, horns, tentacles } = this;
+  fillGrid(grid: string[][], hornTentacles: Vec[][]) {
+    const { body } = this;
 
-    const bodyArray: [number, number][] = body.map((p) => [p.x, p.y]);
-
+    const EXTREMITIES_SEARCH_RADIUS = 0.5;
+    // -1 should be outside, but I probably messed up polygon orientation
+    // it works, so I can't be bothered to fix it
     const INSIDE = -1;
     const EDGE = 0;
 
-    const extremities = [
-      ...tentacles.map((t) => t.fatLine), //
-      ...horns.map((h) => h.fatLine),
-    ];
-
-    const EXTREMITIES_SEARCH_RADIUS = 0.5;
+    const bodyArray: [number, number][] = body.map((p) => [p.x, p.y]);
 
     grid.forEach((col, x) => {
       col.forEach((_, y) => {
         const isInBody = isInPolygon(bodyArray, [x + 0.5, y + 0.5]);
 
         if (isInBody === INSIDE || isInBody === EDGE) {
-          this.paint(x, y, 'x');
+          this.paint(grid, x, y, 'x');
         } else if (grid[x][y] === ' ') {
-          for (const polygon of extremities) {
+          for (const polygon of hornTentacles) {
             const polygonArray: [number, number][] = polygon.map((p) => [p.x, p.y]);
             let painted = false;
 
@@ -86,7 +85,7 @@ export class Invader {
               const isIn = isInPolygon(polygonArray, [x + 0.5, y + 0.5]);
 
               if (d < EXTREMITIES_SEARCH_RADIUS || isIn === INSIDE || isIn === EDGE) {
-                this.paint(x, y, 'l');
+                this.paint(grid, x, y, 'l');
                 painted = true;
                 break;
               }
@@ -102,7 +101,7 @@ export class Invader {
     });
   }
 
-  // ----- Body ----- //
+  // ----- Generate ----- //
 
   generate() {
     const {
@@ -110,7 +109,11 @@ export class Invader {
       height,
       bodyCenter: { x, y },
       options,
+      grid,
+      gridAnimation,
     } = this;
+
+    // --- Body
 
     const half = height * 0.3;
     // top and bottom coordinates of the body
@@ -154,33 +157,52 @@ export class Invader {
       ...cornersRight, // right
     ];
 
-    // Tentacles
+    // --- Tentacles
     // Use the most bottom side point as the start point for the tentacle
-    const startLeftTentacle = pointsLeft[pointsLeft.length - 1];
-    const sideTentacles = this.getSideTentacles(startLeftTentacle);
+    const leftTentacleStart = pointsLeft[pointsLeft.length - 1];
+    const sideTentacles = this.getSideTentacles(leftTentacleStart);
     const midTentacles = this.getMiddleTentacles(bodyBottomPoint, sideTentacles[0].line);
 
     this.tentacles = [...sideTentacles, ...midTentacles];
 
-    // Horns
+    const sideTentaclesAnimation = this.getSideTentaclesAnimation(sideTentacles[0].line);
+    this.tentaclesAnimation = [...sideTentaclesAnimation, ...midTentacles];
+
+    // --- Horns
     this.horns = this.getHorns();
+    this.hornsAnimation = this.getHornsAnimation(this.horns[0].line);
 
-    // Fill grid
-    this.fillGrid();
+    // --- Fill grid
+    const hornTentacles = [
+      ...this.tentacles.map((t) => t.fatLine), //
+      ...this.horns.map((h) => h.fatLine),
+    ];
 
-    // Eyes
+    this.fillGrid(grid, hornTentacles);
+
+    // --- Fill animation frame grid
+    const hornTentaclesAnimation = [
+      ...this.tentaclesAnimation.map((t) => t.fatLine), //
+      ...this.hornsAnimation.map((h) => h.fatLine),
+    ];
+
+    this.fillGrid(gridAnimation, hornTentaclesAnimation);
+
+    // --- Eyes
     const mid = top + (bottom - top) / 2;
-    this.fillEyes(random(mid - 1, mid + 1, options.eyesRng, 0));
+    const eyes = this.getEyes();
+    eyes(grid, random(mid - 1, mid + 1, options.eyesRng, 0));
+    eyes(gridAnimation, random(mid - 1, mid + 1, options.eyesRng, 0));
   }
 
   // ----- Eyes ----- //
 
-  eye(x: number, y: number) {
-    this.paint(x, y, 'o');
-    this.paint4(x, y, 'x');
+  eye(grid: string[][], x: number, y: number) {
+    this.paint(grid, x, y, 'o');
+    this.paint4(grid, x, y, 'x');
   }
 
-  fillEyes(y: number) {
+  getEyes() {
     const {
       bodyCenter: { x },
       options,
@@ -188,47 +210,35 @@ export class Invader {
     const { floor } = Math;
 
     const eyes = [
-      () => {
-        this.eye(floor(x - 2), y);
-        this.eye(floor(x + 2), y);
+      (grid: string[][], y: number) => {
+        this.eye(grid, floor(x - 2), y);
+        this.eye(grid, floor(x + 2), y);
       },
-      () => {
-        this.eye(floor(x - 2), y);
-        this.eye(floor(x), y);
-        this.eye(floor(x + 2), y);
+      (grid: string[][], y: number) => {
+        this.eye(grid, floor(x - 2), y);
+        this.eye(grid, floor(x), y);
+        this.eye(grid, floor(x + 2), y);
       },
-      () => {
-        this.eye(floor(x - 2), y);
-        this.eye(floor(x + 2), y);
-        this.paint(floor(x - 1), y, 'o');
-        this.paint(floor(x + 1), y, 'o');
+      (grid: string[][], y: number) => {
+        this.eye(grid, floor(x - 2), y);
+        this.eye(grid, floor(x + 2), y);
+        this.paint(grid, floor(x - 1), y, 'o');
+        this.paint(grid, floor(x + 1), y, 'o');
       },
     ];
 
     const index = random(0, eyes.length - 1, options.eyesRng, 0);
 
-    eyes[index]();
+    return eyes[index];
   }
 
   // ----- Tentacles ----- //
 
-  getSideTentacles(start: Vec): HornTentacle[] {
+  baseLineToFatLine(baseLine: Vec[], width: number): { fatLine: Vec[]; line: Vec[] }[] {
     const { options } = this;
 
-    let baseLine: Vec[] = [start];
-    const length = random(1, 6, null, 0);
-
-    for (let i = 0; i < length; i++) {
-      const angle = random(-1, 1) * Math.PI * 0.5 + Math.PI * 0.5;
-      const d = random(1, 3, null, 0);
-      const x = baseLine[i].x + d * Math.cos(angle);
-      const y = baseLine[i].y + d * Math.sin(angle);
-      baseLine.push(new Vec(x, y));
-    }
-
     const line = splitLine(baseLine, options.split);
-
-    const fatLine = getFatLine(line, 0.3, options.lineThicknessEasing);
+    const fatLine = getFatLine(line, width, options.lineThicknessEasing);
 
     return [
       {
@@ -242,9 +252,37 @@ export class Invader {
     ];
   }
 
-  getMiddleTentacles(bottom: Vec, tentacle: Vec[]): HornTentacle[] {
-    const { options } = this;
+  getSideTentacles(start: Vec): HornTentacle[] {
+    let baseLine: Vec[] = [start];
+    const length = random(1, 6, null, 0);
 
+    for (let i = 0; i < length; i++) {
+      const angle = random(-1, 1) * Math.PI * 0.5 + Math.PI * 0.5;
+      const d = random(1, 3, null, 0);
+      const x = baseLine[i].x + d * Math.cos(angle);
+      const y = baseLine[i].y + d * Math.sin(angle);
+      baseLine.push(new Vec(x, y));
+    }
+
+    return this.baseLineToFatLine(baseLine, 0.3);
+  }
+
+  getSideTentaclesAnimation(baseLine: Vec[]): HornTentacle[] {
+    const pointsToReplace = baseLine.length > 3 ? 2 : 1;
+    const baseLineAnimation = baseLine.slice(0, baseLine.length - pointsToReplace);
+
+    for (let i = 0; i < pointsToReplace; i++) {
+      const angle = random(-1, 1) * Math.PI * 0.5 + Math.PI * 0.5;
+      const d = random(1, 3, null, 0);
+      const x = baseLineAnimation[i].x + d * Math.cos(angle);
+      const y = baseLineAnimation[i].y + d * Math.sin(angle);
+      baseLineAnimation.push(new Vec(x, y));
+    }
+
+    return this.baseLineToFatLine(baseLineAnimation, 0.3);
+  }
+
+  getMiddleTentacles(bottom: Vec, tentacle: Vec[]): HornTentacle[] {
     let baseLine: Vec[] = [bottom];
 
     const length = random(2, 4, null, 0);
@@ -277,19 +315,7 @@ export class Invader {
     }
 
     if (baseLine.length > 2) {
-      const line = splitLine(baseLine, options.split);
-      const fatLine = getFatLine(line, 0.2, options.lineThicknessEasing);
-
-      return [
-        {
-          fatLine,
-          line,
-        },
-        {
-          fatLine: this.mirror(fatLine),
-          line: this.mirror(line),
-        },
-      ];
+      return this.baseLineToFatLine(baseLine, 0.2);
     }
 
     return [];
@@ -299,7 +325,6 @@ export class Invader {
 
   getHorns(): HornTentacle[] {
     const {
-      options,
       bodyCenter: { x, y },
     } = this;
 
@@ -324,20 +349,20 @@ export class Invader {
       r = random(1, 2, null, 0);
     }
 
-    const line = splitLine(baseLine, options.split);
+    return this.baseLineToFatLine(baseLine, 0.3);
+  }
 
-    const fatLine = getFatLine(line, 0.3, options.lineThicknessEasing);
+  getHornsAnimation(leftHorn: Vec[]): HornTentacle[] {
+    const horn = leftHorn.map((p, i) => {
+      // Move last point
+      if (i === leftHorn.length - 1) {
+        return p.add(new Vec(-1, 0));
+      }
 
-    return [
-      {
-        fatLine,
-        line,
-      },
-      {
-        fatLine: this.mirror(fatLine),
-        line: this.mirror(line),
-      },
-    ];
+      return p;
+    });
+
+    return this.baseLineToFatLine(horn, 0.3);
   }
 
   // ----- Utils ----- //
@@ -350,21 +375,21 @@ export class Invader {
 
   // ----- Paint ----- //
   //
-  paint(x: number, y: number, char: string) {
-    this.grid[x][y] = char;
+  paint(grid: string[][], x: number, y: number, char: string) {
+    grid[x][y] = char;
   }
 
-  paint4(x: number, y: number, char: string) {
+  paint4(grid: string[][], x: number, y: number, char: string) {
     const neighbors = this.findNeighbors4(x, y);
     neighbors.forEach((neighbor) => {
-      this.paint(neighbor.x, neighbor.y, char);
+      this.paint(grid, neighbor.x, neighbor.y, char);
     });
   }
 
-  paint8(x: number, y: number, char: string) {
+  paint8(grid: string[][], x: number, y: number, char: string) {
     const neighbors = this.findNeighbors8(x, y);
     neighbors.forEach((neighbor) => {
-      this.paint(neighbor.x, neighbor.y, char);
+      this.paint(grid, neighbor.x, neighbor.y, char);
     });
   }
 
@@ -423,167 +448,3 @@ export class Invader {
     return string.join('\n');
   }
 }
-
-// // ----- Head ----- //
-// getInvader() {
-//   const { width, height, grid } = this;
-//   const { floor, round } = Math;
-
-//   const center = {
-//     x: width / 2,
-//     y: round(height * 0.4),
-//   };
-
-//   const { polygon, limbs } = this.polygon(center.x, center.y);
-//   const polygonArray: [number, number][] = polygon.map((p) => [p.x, p.y]);
-
-//   grid.forEach((col, x) => {
-//     col.forEach((_, y) => {
-//       const isIn = isInPolygon(polygonArray, [x + 0.5, y + 0.5]);
-
-//       if (isIn === 0 || isIn === -1) {
-//         this.paint(x, y, 'x');
-//       } else {
-//         for (const limb of limbs) {
-//           const limbArray: [number, number][] = limb.map((p) => [p.x, p.y]);
-//           for (const point of limb) {
-//             // const d = distance({ x: x + 0.5, y: y + 0.5 }, point);
-//             const d = point.distance(new Vec(x + 0.5, y + 0.5));
-//             const isIn = isInPolygon(limbArray, [x + 0.5, y + 0.5]);
-
-//             if (d < 0.5 || isIn === 0 || isIn === -1) {
-//               this.paint(x, y, 'l');
-//               break;
-//             }
-//           }
-//         }
-//       }
-//     });
-//   });
-
-//   this.paint(floor(center.x), center.y, '*');
-
-//   // Eyes
-//   this.paint8(floor(center.x), center.y, 'x');
-//   const e = random(1, 3, null, 0);
-//   if (e === 1) {
-//     this.eye(floor(center.x - 2), center.y);
-//     this.eye(floor(center.x + 2), center.y);
-//   } else if (e === 2) {
-//     this.eye(floor(center.x - 2), center.y);
-//     this.eye(floor(center.x), center.y);
-//     this.eye(floor(center.x + 2), center.y);
-//   } else {
-//     this.eye(floor(center.x - 2), center.y);
-//     this.eye(floor(center.x + 2), center.y);
-//     this.paint(floor(center.x - 1), center.y, 'o');
-//     this.paint(floor(center.x + 1), center.y, 'o');
-//   }
-
-//   console.log(this.toString());
-
-//   const svg = this.svg(polygon, limbs);
-
-//   return svg;
-// }
-
-// polygon(
-//   x: number,
-//   y: number,
-// ): {
-//   polygon: Vec[];
-//   limbs: Vec[][];
-// } {
-//   const { width, height } = this;
-
-//   const half = height * 0.3;
-//   // Adding 1 to top and bottom to ensure minimum of 3 pixels for the head
-//   const bottom = y + 1 + random(0, half, null, 0);
-//   const top = bottom - random(3, height * 0.4, null, 0); // y - 1 - random(0, half);
-
-//   const count = random(1, 5, null, 0);
-//   const corners: Vec[] = [];
-
-//   while (corners.length < count) {
-//     const point = new Vec(random(width * 0.1, x - 1, null, 0), random(height * 0.2, height * 0.6, null, 0));
-
-//     if (!corners.find((p) => p.x === point.x && p.y === point.y)) {
-//       corners.push(point);
-//     }
-//   }
-
-//   corners.sort((a, b) => a.y - b.y);
-
-//   const mirror = (points: Vec[]) => points.map((p) => new Vec(width - p.x, p.y)).reverse();
-
-//   const cornersRight = mirror(corners);
-
-//   // Limbs
-
-//   let limb: Vec[] = [corners[corners.length - 1]];
-//   const l = random(1, 6, null, 0);
-
-//   for (let i = 0; i < l; i++) {
-//     const angle = random(-1, 1) * Math.PI * 0.5 + Math.PI * 0.5;
-//     const d = random(1, 3, null, 0);
-//     const x = limb[i].x + d * Math.cos(angle);
-//     const y = limb[i].y + d * Math.sin(angle);
-//     limb.push(new Vec(x, y));
-//   }
-
-//   limb = getFatLine(limb, 0.75);
-
-//   let midLimb: Vec[] = [];
-//   if (random(0, 10) > 3) {
-//     midLimb[0] = new Vec(x, bottom);
-//     const midLimbLength = random(2, 4, null, 0);
-
-//     for (let i = 0; i < midLimbLength; i++) {
-//       const angle = random(-1, 0, null, 0) * Math.PI * 0.25 + Math.PI * 0.5;
-//       const d = random(1, 2, null, 0);
-//       const x = midLimb[i].x + d * Math.cos(angle);
-//       const y = midLimb[i].y + d * Math.sin(angle);
-
-//       const point = new Vec(x, y);
-
-//       let stop = false;
-
-//       for (const p of limb) {
-//         if (point.distance(p) < 4) {
-//           stop = true;
-//           break;
-//         }
-//       }
-
-//       if (stop) {
-//         break;
-//       }
-
-//       midLimb.push(point);
-//     }
-
-//     if (midLimb.length > 2) {
-//       midLimb = getFatLine(midLimb, 0.5);
-//     }
-//   }
-
-//   const limbs = [limb, midLimb, mirror(limb), mirror(midLimb)];
-
-//   // Horns
-
-//   this.horns = this.getHorns();
-
-//   this.horns.forEach((horn) => {
-//     limbs.push(horn.fatLine);
-//   });
-
-//   return {
-//     polygon: [
-//       ...corners, //
-//       new Vec(x, bottom),
-//       ...cornersRight,
-//       new Vec(x, top),
-//     ],
-//     limbs,
-//   };
-// }

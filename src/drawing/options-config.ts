@@ -57,6 +57,12 @@ export const config = [
   },
   {
     type: 'boolean',
+    name: 'animate',
+    defaultValue: false,
+    isRandomizationDisabled: true,
+  },
+  {
+    type: 'boolean',
     name: 'flip',
     defaultValue: false,
     isRandomizationDisabled: true,

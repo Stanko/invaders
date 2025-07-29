@@ -4,14 +4,13 @@ import type { Options } from '../utils/options-type';
 import type { HornTentacle } from './invader';
 import Vec from '../utils/vec';
 
-const getPixels = (grid: string[][], gap: number = 0) => {
+const getPixels = (grid: string[][], gap: number = 0, offset: number = 0) => {
   const size = 1 - gap * 2;
   const pixels = grid.map((row, x) => {
     return row
       .map((pixel, y) => {
         if (pixel !== ' ' && pixel !== 'o') {
-          // return `<rect x="${x + gap}" y="${y + gap}" width="${size}" height="${size}" class="invader-pixel invader-pixel--${pixel}" />`;
-          return svgUtils.getRect(new Vec(x + gap, y + gap), new Vec(size, size), {
+          return svgUtils.getRect(new Vec(x + gap + offset, y + gap), new Vec(size, size), {
             class: `invader-pixel invader-pixel--${pixel}`,
           });
         }
@@ -81,7 +80,7 @@ const getGridLines = (width: number, height: number) => {
 };
 
 export default async function render(options: Options): Promise<SVGElement> {
-  const { size, debug, gap, flip, showGrid } = options;
+  const { size, debug, gap, flip, showGrid, animate } = options;
 
   const width = size * 2 + 1;
   const height = width;
@@ -94,7 +93,11 @@ export default async function render(options: Options): Promise<SVGElement> {
   svgElement.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
 
   if (debug) {
-    svgElement.classList.add('debug');
+    svgElement.classList.add('invader--debug');
+  }
+
+  if (animate) {
+    svgElement.classList.add('invader--animate');
   }
 
   // ----- Main logic ----- //
@@ -109,18 +112,18 @@ export default async function render(options: Options): Promise<SVGElement> {
   let svgContent = `\n<!-- ${window.location.href} -->\n`;
 
   if (flip) {
-    const grid = invader.grid.map((col) => {
-      return [...col].reverse();
-    });
+    svgContent += `<g transform="scale(1, -1) translate(0, -${height * SCALE})">`;
+  }
 
-    svgContent += getPixels(grid, gap);
-  } else {
-    svgContent += getPixels(invader.grid, gap);
+  svgContent += getPixels(invader.grid, gap);
+
+  if (animate) {
+    svgContent += getPixels(invader.gridAnimation, gap, width);
   }
 
   // Debug
   if (debug) {
-    svgContent += `<g class="invader-debug" stroke-linecap="round" stroke-linejoin="round">`;
+    svgContent += `<g stroke-linecap="round" stroke-linejoin="round">`;
     svgContent += svgUtils.getPath(invader.body, true, {
       class: 'invader-body',
       fill: 'none',
@@ -129,11 +132,20 @@ export default async function render(options: Options): Promise<SVGElement> {
 
     svgContent += getHornTentacleContent(invader.horns, 'horn');
     svgContent += getHornTentacleContent(invader.tentacles, 'tentacle');
+
+    // Commented out on purpose
+    // It creates noise and it is only useful for the animation debugging
+    svgContent += getHornTentacleContent(invader.tentaclesAnimation, 'animation-tentacle', width);
+
     svgContent += `</g>`;
   }
 
   if (showGrid) {
     svgContent += getGridLines(width, height);
+  }
+
+  if (flip) {
+    svgContent += `</g>`;
   }
 
   svgElement.innerHTML = svgContent;
