@@ -67,7 +67,7 @@ svg {
 }
 
 .invader--debug .invader-pixel--l {
-  filter: invert(0.4);
+  fill: oklch(calc(var(--theme-l) * 0.8) calc(var(--theme-c) * 0.6) var(--theme-h));
 }
 
 .invader-horn,

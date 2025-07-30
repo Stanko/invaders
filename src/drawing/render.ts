@@ -150,6 +150,7 @@ export default async function render(options: Options): Promise<SVGElement> {
 
     // Commented out on purpose
     // It creates noise and it is only useful for the animation debugging
+    // svgContent += getHornTentacleContent(invader.hornsAnimation, 'animation-horn');
     // svgContent += getHornTentacleContent(invader.tentaclesAnimation, 'animation-tentacle');
 
     svgContent += `</g>`;
@@ -166,6 +167,8 @@ export default async function render(options: Options): Promise<SVGElement> {
   const iconDataUri = `data:image/svg+xml;base64,${btoa(svgIcon.outerHTML)}`;
   const iconElement = document.querySelector('link[rel="icon"]') as HTMLLinkElement;
   iconElement.setAttribute('href', iconDataUri);
+
+  console.log(invader.toString());
 
   return svgElement;
 }

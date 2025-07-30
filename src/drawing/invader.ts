@@ -118,7 +118,7 @@ export class Invader {
     const half = height * 0.3;
     // top and bottom coordinates of the body
     // Adding 1 to top and bottom to ensure minimum of 3 pixels for the body
-    const bottom = y + 1 + random(0, half, null, 0);
+    const bottom = y + random(1, half, null, 0);
     const top = bottom - random(3, height * 0.4, null, 0); // y - 1 - random(0, half);
 
     // Corners of the body
@@ -136,8 +136,8 @@ export class Invader {
 
       const point = new Vec(px, py);
 
-      // Check if the point is already in the array
-      if (!pointsLeft.find((p) => p.x === point.x && p.y === point.y)) {
+      // Check if the point is close to any existing point
+      if (!pointsLeft.find((p) => point.distance(p) < 0.2)) {
         pointsLeft.push(point);
       }
     }
