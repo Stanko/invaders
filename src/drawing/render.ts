@@ -34,7 +34,7 @@ const getHornTentacleContent = (items: HornTentacle[], name: string) => {
   const plural = name + 's';
 
   // Outlines
-  content += `<g class="invader-${plural}" stroke="black" fill="none">`;
+  content += `<g class="invader-${plural}" stroke="rgb(255 255 255 / 0.8)" fill="none">`;
   items.forEach((item) => {
     content += svgUtils.getPath(item.fatLine, true, {
       class: `invader-${name}`,
@@ -43,7 +43,7 @@ const getHornTentacleContent = (items: HornTentacle[], name: string) => {
   content += '</g>';
 
   // Lines
-  content += `<g class="invader-${name}-lines" stroke="blue" fill="none">`;
+  content += `<g class="invader-${name}-lines" stroke="rgb(117 251 253 / 0.8)" fill="none">`;
   items.forEach((item) => {
     content += svgUtils.getPath(item.line, false, {
       class: `invader-${name}-line`,
@@ -52,7 +52,7 @@ const getHornTentacleContent = (items: HornTentacle[], name: string) => {
   content += '</g>';
 
   // Points
-  content += `<g class="invader-${name}-points" fill="blue">`;
+  content += `<g class="invader-${name}-points" fill="rgb(117 251 253 / 0.8)">`;
   items.forEach((item) => {
     item.line.forEach((point) => {
       content += svgUtils.getCircle(point, 0.12, {
@@ -125,13 +125,17 @@ export default async function render(options: Options): Promise<SVGElement> {
     svgContent += getPixels(invader.gridAnimation, gap, width);
   }
 
+  if (showGrid) {
+    svgContent += getGridLines(width, height);
+  }
+
   // Debug
   if (debug) {
     svgContent += `<g stroke-linecap="round" stroke-linejoin="round">`;
     svgContent += svgUtils.getPath(invader.body, true, {
       class: 'invader-body',
       fill: 'none',
-      stroke: 'black',
+      stroke: 'rgb(255 255 255 / 0.8)',
     });
 
     svgContent += getHornTentacleContent(invader.horns, 'horn');
@@ -142,10 +146,6 @@ export default async function render(options: Options): Promise<SVGElement> {
     // svgContent += getHornTentacleContent(invader.tentaclesAnimation, 'animation-tentacle');
 
     svgContent += `</g>`;
-  }
-
-  if (showGrid) {
-    svgContent += getGridLines(width, height);
   }
 
   if (flip) {
