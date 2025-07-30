@@ -89,8 +89,6 @@ export default async function render(options: Options): Promise<SVGElement> {
   const width = size * 2 + 1;
   const height = width;
 
-  document.documentElement.style.setProperty('--invader-width', width.toString());
-
   // ----- Main logic ----- //
   // TODO add default memoization for "getDrawingData"
   console.time('drawing data');
@@ -101,6 +99,7 @@ export default async function render(options: Options): Promise<SVGElement> {
   const svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   svgElement.setAttribute('viewBox', `0 0 ${width * SCALE} ${height * SCALE}`);
   svgElement.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+  svgElement.style.setProperty('--invader-width', width.toString());
 
   if (debug) {
     svgElement.classList.add('invader--debug');

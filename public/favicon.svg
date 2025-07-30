@@ -1,0 +1,64 @@
+<svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" style="--invader-width: 15;">
+<!-- http://localhost:1234/invaders/#/size:7/main-seed:depth-character-region/gap:0/split:2/line-thickness:0,0,1,1/color:got-exactly-accurate/eyes:wife-sad-toward/animate:false/flip:false/show-grid:false/debug:false -->
+<g class="invader-pixels-wrapper"><g class="invader-pixels" fill="oklch(0.64 0.29 277)">
+
+<rect x="20.00" y="120.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--l"></rect>
+<rect x="20.00" y="140.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--l"></rect>
+<rect x="20.00" y="160.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--l"></rect>
+<rect x="40.00" y="100.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--x"></rect>
+<rect x="40.00" y="120.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--l"></rect>
+<rect x="40.00" y="180.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--l"></rect>
+<rect x="60.00" y="60.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--l"></rect>
+<rect x="60.00" y="80.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--x"></rect>
+<rect x="60.00" y="100.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--x"></rect>
+<rect x="60.00" y="120.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--x"></rect>
+<rect x="80.00" y="80.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--x"></rect>
+<rect x="80.00" y="100.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--x"></rect>
+<rect x="80.00" y="120.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--x"></rect>
+<rect x="100.00" y="40.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--l"></rect>
+<rect x="100.00" y="80.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--x"></rect>
+<rect x="100.00" y="120.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--x"></rect>
+<rect x="100.00" y="280.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--l"></rect>
+<rect x="120.00" y="20.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--l"></rect>
+<rect x="120.00" y="60.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--x"></rect>
+<rect x="120.00" y="80.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--x"></rect>
+<rect x="120.00" y="100.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--x"></rect>
+<rect x="120.00" y="120.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--x"></rect>
+<rect x="120.00" y="140.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--x"></rect>
+<rect x="120.00" y="200.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--l"></rect>
+<rect x="120.00" y="240.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--l"></rect>
+<rect x="140.00" y="60.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--x"></rect>
+<rect x="140.00" y="80.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--x"></rect>
+<rect x="140.00" y="100.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--x"></rect>
+<rect x="140.00" y="120.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--x"></rect>
+<rect x="140.00" y="140.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--x"></rect>
+<rect x="140.00" y="160.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--l"></rect>
+<rect x="140.00" y="180.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--l"></rect>
+<rect x="140.00" y="200.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--l"></rect>
+<rect x="160.00" y="20.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--l"></rect>
+<rect x="160.00" y="60.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--x"></rect>
+<rect x="160.00" y="80.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--x"></rect>
+<rect x="160.00" y="100.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--x"></rect>
+<rect x="160.00" y="120.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--x"></rect>
+<rect x="160.00" y="140.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--x"></rect>
+<rect x="160.00" y="200.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--l"></rect>
+<rect x="160.00" y="240.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--l"></rect>
+<rect x="180.00" y="40.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--l"></rect>
+<rect x="180.00" y="80.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--x"></rect>
+<rect x="180.00" y="120.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--x"></rect>
+<rect x="180.00" y="280.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--l"></rect>
+<rect x="200.00" y="80.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--x"></rect>
+<rect x="200.00" y="100.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--x"></rect>
+<rect x="200.00" y="120.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--x"></rect>
+<rect x="220.00" y="60.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--l"></rect>
+<rect x="220.00" y="80.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--x"></rect>
+<rect x="220.00" y="100.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--x"></rect>
+<rect x="220.00" y="120.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--x"></rect>
+<rect x="240.00" y="100.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--x"></rect>
+<rect x="240.00" y="120.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--l"></rect>
+<rect x="240.00" y="180.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--l"></rect>
+<rect x="260.00" y="120.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--l"></rect>
+<rect x="260.00" y="140.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--l"></rect>
+<rect x="260.00" y="160.00" width="20.00" height="20.00" class="invader-pixel invader-pixel--l"></rect>
+
+</g></g></svg>

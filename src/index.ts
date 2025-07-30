@@ -7,6 +7,7 @@ import setTitle from './utils/set-title';
 
 import '@stanko/dual-range-input/dist/index.css';
 import './scss/index.scss';
+import seedrandom from 'seedrandom';
 
 // Initialize options controls
 export const controls = new Controls(config);
@@ -18,7 +19,7 @@ const title = document.querySelector('title')?.textContent || '';
 const controlsDiv = document.querySelector('.controls') as HTMLDivElement;
 const drawingDiv = document.querySelector('.drawing') as HTMLDivElement;
 
-const buildUI = () => {
+const buildUI = (controls: Controls<typeof config>) => {
   controls.addToContainer(controlsDiv);
 
   // TODO
@@ -30,7 +31,11 @@ const buildUI = () => {
   saveButton.appendChild(createElement(ImageDown));
   saveButton.addEventListener('click', () => {
     const svg = drawingDiv.querySelector('svg') as SVGElement;
-    downloadSVG(svg, `drawing-${window.location.hash.replace('#/', '').replace(/(\/|,)/g, '_')}.svg`);
+    const options = controls.getOptions();
+    const rng = seedrandom(window.location.hash);
+    const id = rng().toString(36).substring(2, 8);
+
+    downloadSVG(svg, `invader_${options.mainSeed}_${id}.svg`);
   });
   controlsDiv.appendChild(saveButton);
 
@@ -61,11 +66,13 @@ const draw = async () => {
   const svg = await render(options);
 
   drawingDiv.replaceChildren(svg);
+  // Grid of invaders
+  // drawingDiv.append(svg);
 };
 
 // Redraw on options change
 controls.onChange = draw;
 
 // Initialize
-buildUI();
+buildUI(controls);
 draw();

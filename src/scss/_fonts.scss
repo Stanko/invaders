@@ -1,0 +1,47 @@
+@font-face {
+  font-family: 'tiny5';
+  src:
+    url('/invaders/fonts/tiny5/Tiny5-Regular.ttf') format('truetype'),
+    url('/invaders/fonts/tiny5/Tiny5-Regular.woff2') format('woff2'),
+    url('/invaders/fonts/tiny5/Tiny5-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'match7';
+  src:
+    url('/invaders/fonts/match7/Match7.ttf') format('truetype'),
+    url('/invaders/fonts/match7/Match7.woff2') format('woff2'),
+    url('/invaders/fonts/match7/Match7.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'nope8';
+  src:
+    url('/invaders/fonts/nope8/Nope8.ttf') format('truetype'),
+    url('/invaders/fonts/nope8/Nope8.woff2') format('woff2'),
+    url('/invaders/fonts/nope8/Nope8.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inconsolata';
+  src: url('/invaders/fonts/inconsolata/Inconsolata-VariableFont_wdth,wght.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Inconsolata';
+  src: url('/invaders/fonts/inconsolata/Inconsolata-VariableFont_wdth_wght.woff2') format('woff2-variations');
+  src: url('/invaders/fonts/inconsolata/Inconsolata-VariableFont_wdth_wght.woff2') format('woff2') tech('variations');
+  font-weight: 100 900;
+  font-stretch: 25% 151%;
+}

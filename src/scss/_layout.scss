@@ -38,6 +38,8 @@ body {
 
   @include breakpoints.lg {
     max-height: none;
+    /* Grid of invaders */
+    /* grid-template-columns: repeat(12, 1fr); */
   }
 }
 
@@ -51,6 +53,9 @@ body {
 
   @include breakpoints.lg {
     --invader-pixel: 1.25rem;
+
+    /* Grid of invaders */
+    /* --invader-pixel: 0.3rem; */
   }
 }
 
