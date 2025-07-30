@@ -76,7 +76,7 @@ const getGridLines = (width: number, height: number) => {
     d.push(`M 0 ${j * SCALE} h ${width * SCALE}`);
   }
 
-  return `<path d="${d.join(' ')}" class="invader-grid" stroke="#414246" />`;
+  return `<path d="${d.join(' ')}" class="invader-grid" stroke="#515256" />`;
 };
 
 export default async function render(options: Options): Promise<SVGElement> {

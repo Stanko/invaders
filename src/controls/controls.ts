@@ -151,7 +151,7 @@ export class Controls<Configs extends readonly TypedControlConfig[]> {
   addToContainer = (container: HTMLElement) => {
     const randomizeButton = document.createElement('button');
     randomizeButton.classList.add('controls-randomize', 'controls-btn');
-    randomizeButton.textContent = 'Randomize';
+    randomizeButton.textContent = 'New Invader';
     randomizeButton.appendChild(createElement(Dice5));
     randomizeButton.addEventListener('click', this.randomize);
     container.appendChild(randomizeButton);

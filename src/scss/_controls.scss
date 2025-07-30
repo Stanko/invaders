@@ -4,36 +4,44 @@
 .controls {
   --controls-font: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
 
-  --controls-main-oklch: var(--theme-l) var(--theme-c) var(--theme-h);
+  --controls-main-oklch: 0.6 var(--theme-c) var(--theme-h);
   --controls-main: oklch(var(--controls-main-oklch));
 
-  --controls-main-dark-l: calc(var(--theme-l) - 0.2);
+  --controls-main-light-oklch: 0.75 var(--theme-c) var(--theme-h);
+  --controls-main-light: oklch(var(--controls-main-light-oklch));
+
+  --controls-main-dark-l: 0.45;
   --controls-main-dark-oklch: var(--controls-main-dark-l) var(--theme-c) var(--theme-h);
   --controls-main-dark: oklch(var(--controls-main-dark-oklch));
 
-  --controls-gray-25: #f4f5f8;
+  // --controls-gray-25: #f4f5f8;
+  // --controls-gray-50: #eff1f4;
+  // --controls-gray-100: #dee3ea;
+  // --controls-gray-200: #bec7d5;
+  // --controls-gray-300: #9eacc2;
+  // --controls-gray-400: #8292a9;
+  // --controls-gray-500: #6b788b;
+  // --controls-gray-600: #545f6f;
+  // --controls-gray-700: #3f4753;
+  // --controls-gray-800: #2a313a;
+  // --controls-gray-900: #181c22;
+
   --controls-gray-50: #eff1f4;
   --controls-gray-100: #dee3ea;
   --controls-gray-200: #bec7d5;
   --controls-gray-300: #9eacc2;
   --controls-gray-400: #8292a9;
   --controls-gray-500: #6b788b;
-  --controls-gray-600: #545f6f;
-  --controls-gray-700: #3f4753;
-  --controls-gray-800: #2a313a;
-  --controls-gray-900: #181c22;
-  --controls-gray-950: #0e1116;
 
-  --controls-bg: #fff;
-  --controls-fg: var(--controls-gray-900);
-  --controls-fg-muted: var(--controls-gray-600);
+  --controls-bg: rgb(0 0 0 / 0.2);
+  --controls-fg: #181c22;
+  --controls-fg-muted: #bec7d5;
   --controls-fg-light: var(--controls-gray-50);
 
-  --controls-button-bg: var(--controls-gray-50);
-  --controls-button-bg-hover: var(--controls-gray-100);
+  --controls-button-bg: rgb(0 0 0 / 0.25);
+  --controls-button-bg-hover: rgb(0 0 0 / 0.4);
 
-  --controls-input-bg: var(--controls-gray-50);
-  --controls-input-bg-active: var(--controls-gray-100);
+  --controls-input-bg: rgb(0 0 0 / 0.25);
 
   --controls-radius: 4px;
 
@@ -45,9 +53,10 @@
 
   padding: 0.5rem 0.75rem;
   gap: 0.5rem;
-  border-top: 1px solid var(--controls-gray-100);
+  border-top: 1px solid rgb(255 255 255 / 0.075);
   background: rgb(244 245 248 / 0.8); // --controls-gray-25 at 80%
   background: var(--controls-gray-25);
+  background: rgb(100 105 110 / 0.6);
   backdrop-filter: blur(10px);
   scrollbar-width: thin;
   scrollbar-color: var(--controls-gray-400) transparent;
@@ -72,7 +81,7 @@
     max-width: 24rem;
     min-height: 100vh;
     overflow: auto;
-    border-left: 1px solid var(--controls-gray-100);
+    border-left: 1px solid rgb(255 255 255 / 0.075);
     border-top: none;
     position: sticky;
     top: 0;
@@ -85,14 +94,14 @@
   justify-content: center;
   gap: 0.25rem;
   border-radius: var(--controls-radius);
+  color: var(--controls-fg-light);
   transition:
     color 500ms,
     background-color 500ms;
 
   &:focus-visible,
   &:hover {
-    background: oklch(var(--controls-main-oklch) / 0.1);
-    color: var(--controls-main);
+    color: var(--controls-main-light);
   }
 
   svg {
@@ -111,8 +120,13 @@
 .controls-save {
   padding: 0.5rem 1rem;
   margin-left: 6rem;
-  background: var(--controls-gray-100);
+  background: var(--controls-button-bg);
   font-weight: 700;
+
+  &:focus-visible,
+  &:hover {
+    background: var(--controls-button-bg-hover);
+  }
 }
 
 .controls-randomize {
@@ -144,11 +158,8 @@
 }
 
 .control-right {
-  /* width: 13rem; */
-  /* width: calc(100% - 10rem); */
   flex: auto 1 1;
-
-  border: 1px solid var(--controls-gray-100);
+  /* border: 1px solid var(--controls-gray-100); */
   background: var(--controls-bg);
   border-radius: var(--controls-radius);
   padding: 0.5rem;
@@ -173,7 +184,7 @@
   width: 1rem;
   height: 1rem;
   color: transparent;
-  background: var(--controls-gray-100);
+  background: var(--controls-fg-light);
   border-radius: var(--controls-radius);
   display: grid;
   place-items: center;
@@ -232,18 +243,17 @@ label:hover .boolean-input:checked + .boolean-checkmark {
 // Mixins
 
 @mixin range-track {
-  background-color: var(--controls-gray-100);
+  background-color: var(--controls-gray-200);
   background-repeat: no-repeat;
   box-sizing: border-box;
   height: 0.25rem;
 
-  border-start-start-radius: var(--controls-radius);
-  border-end-start-radius: var(--controls-radius);
+  border-radius: 100px;
 
   background-image: linear-gradient(
     to right,
     var(--controls-main) var(--gradient-position),
-    var(--controls-gray-100) var(--gradient-position)
+    var(--controls-gray-200) var(--gradient-position)
   );
 }
 
@@ -252,7 +262,7 @@ label:hover .boolean-input:checked + .boolean-checkmark {
   appearance: none;
   background-color: var(--controls-gray-100);
   border-radius: var(--controls-radius);
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: none; // 1px solid rgba(0, 0, 0, 0.3);
   box-shadow: none;
   box-sizing: border-box;
   height: 1rem;
@@ -367,14 +377,20 @@ input::-webkit-slider-thumb {
   text-align: center;
   border-radius: var(--controls-radius);
   background: var(--controls-button-bg);
+  color: var(--controls-fg-light);
   cursor: pointer;
   padding: 0.25rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  transition:
+    color 250ms,
+    background-color 250ms;
 
+  &:focus-visible,
   &:hover {
     background: var(--controls-button-bg-hover);
+    color: var(--controls-main-light);
   }
 }
 
@@ -405,6 +421,7 @@ input::-webkit-slider-thumb {
 
 .seed-input {
   background-color: var(--controls-input-bg);
+  color: var(--controls-fg-light);
   padding: 0.25rem 0.5rem;
   border-radius: var(--controls-radius);
   width: 0;
@@ -484,10 +501,16 @@ input::-webkit-slider-thumb {
   text-align: center;
   border-radius: var(--controls-radius);
   background: var(--controls-button-bg);
+  color: var(--controls-fg-light);
   padding: 0.25rem;
+  transition:
+    color 250ms,
+    background-color 250ms;
 
+  &:focus-visible,
   &:hover {
     background: var(--controls-button-bg-hover);
+    color: var(--controls-main-light);
   }
 }
 
