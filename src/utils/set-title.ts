@@ -1,17 +1,6 @@
 import type { Options } from '../utils/options-type';
 import random from './random';
 
-const getIcon = (color: string) => {
-  const canvas = document.createElement('canvas');
-  canvas.width = 64;
-  canvas.height = 64;
-  const context = canvas.getContext('2d') as CanvasRenderingContext2D;
-  context.fillStyle = color;
-  context.roundRect(0, 0, 64, 64, 32);
-  context.fill();
-  return canvas.toDataURL();
-};
-
 const setTitle = (options: Options, title = '') => {
   if (title) {
     title += ' • ';
@@ -28,13 +17,8 @@ const setTitle = (options: Options, title = '') => {
   document.documentElement.style.setProperty('--theme-h', h);
 
   const color = `oklch(${l} ${c} ${h})`;
-  const icon = getIcon(color);
 
   console.log('%c  ', `background: ${color}`, options.mainSeed);
-
-  const iconElement = document.querySelector('link[rel="icon"]') as HTMLLinkElement;
-
-  iconElement.setAttribute('href', icon);
 
   document.title = title + options.mainSeed;
 };

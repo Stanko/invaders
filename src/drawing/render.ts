@@ -76,7 +76,7 @@ const getGridLines = (width: number, height: number) => {
     d.push(`M 0 ${j * SCALE} h ${width * SCALE}`);
   }
 
-  return `<path d="${d.join(' ')}" class="invader-grid" stroke="#ddd" />`;
+  return `<path d="${d.join(' ')}" class="invader-grid" stroke="#414246" />`;
 };
 
 export default async function render(options: Options): Promise<SVGElement> {
@@ -86,6 +86,12 @@ export default async function render(options: Options): Promise<SVGElement> {
   const height = width;
 
   document.documentElement.style.setProperty('--invader-width', width.toString());
+
+  // ----- Main logic ----- //
+  // TODO add default memoization for "getDrawingData"
+  console.time('drawing data');
+  const { invader } = await getDrawingData(options);
+  console.timeEnd('drawing data');
 
   // ----- SVG init ----- //
   const svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -100,11 +106,9 @@ export default async function render(options: Options): Promise<SVGElement> {
     svgElement.classList.add('invader--animate');
   }
 
-  // ----- Main logic ----- //
-  // TODO add default memoization for "getDrawingData"
-  console.time('drawing data');
-  const { invader } = await getDrawingData(options);
-  console.timeEnd('drawing data');
+  // Create a separate SVG for favicon
+  const svgIcon = svgElement.cloneNode() as SVGElement;
+  svgIcon.innerHTML += getPixels(invader.grid);
 
   // ----- Render ----- //
   console.time('svg render');
@@ -135,7 +139,7 @@ export default async function render(options: Options): Promise<SVGElement> {
 
     // Commented out on purpose
     // It creates noise and it is only useful for the animation debugging
-    svgContent += getHornTentacleContent(invader.tentaclesAnimation, 'animation-tentacle');
+    // svgContent += getHornTentacleContent(invader.tentaclesAnimation, 'animation-tentacle');
 
     svgContent += `</g>`;
   }
@@ -150,6 +154,11 @@ export default async function render(options: Options): Promise<SVGElement> {
 
   svgElement.innerHTML = svgContent;
   console.timeEnd('svg render');
+
+  // Set icon
+  const iconDataUri = `data:image/svg+xml;base64,${btoa(svgIcon.outerHTML)}`;
+  const iconElement = document.querySelector('link[rel="icon"]') as HTMLLinkElement;
+  iconElement.setAttribute('href', iconDataUri);
 
   return svgElement;
 }

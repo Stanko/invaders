@@ -1,6 +1,7 @@
 @use 'breakpoints';
 
 body {
+  background: #202125;
 }
 
 .app {
@@ -29,20 +30,20 @@ body {
   padding: 2rem;
   position: sticky;
   top: 0;
+  display: grid;
+  place-items: center;
 
   max-height: 80vh;
   max-height: 80svh;
 
   @include breakpoints.lg {
-    max-height: 100vh;
-    max-height: 100svh;
+    max-height: none;
   }
 }
 
 .drawing svg {
   --invader-pixel: 1rem;
 
-  background: white;
   margin: 0 auto;
   max-width: 100%;
 

@@ -47,6 +47,7 @@
   gap: 0.5rem;
   border-top: 1px solid var(--controls-gray-100);
   background: rgb(244 245 248 / 0.8); // --controls-gray-25 at 80%
+  background: var(--controls-gray-25);
   backdrop-filter: blur(10px);
   scrollbar-width: thin;
   scrollbar-color: var(--controls-gray-400) transparent;
