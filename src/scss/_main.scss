@@ -62,7 +62,7 @@ svg {
   overflow: hidden;
 }
 
-.invader--animate .invader-pixels {
+.invader--animate .invader-pixels-wrapper {
   animation: invader-animation 1000ms infinite steps(1);
 }
 

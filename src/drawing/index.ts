@@ -7,9 +7,6 @@ export default async function getDrawingData(options: Options) {
 
   const width = size * 2 + 1;
 
-  // Init clipper
-  // await initClipper();
-
   // --------- Main logic
   const invader = new Invader(width, width, options);
 

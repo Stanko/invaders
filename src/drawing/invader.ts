@@ -30,10 +30,8 @@ export class Invader {
       throw new Error('Width must be odd');
     }
 
-    // Cap size to 51 (it has to be odd)
-    // Large grid sizes also take a while to render
-    this.width = Math.min(width, 51);
-    this.height = Math.min(height, 51);
+    this.width = width;
+    this.height = height;
     this.options = options;
 
     this.bodyCenter = new Vec(width / 2, Math.round(height * 0.4));

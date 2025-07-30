@@ -80,6 +80,10 @@ const getGridLines = (width: number, height: number) => {
 };
 
 export default async function render(options: Options): Promise<SVGElement> {
+  // Cap size to 25
+  // Large grid sizes also take a while to render
+  options.size = Math.min(options.size, 25);
+
   const { size, debug, gap, flip, showGrid, animate } = options;
 
   const width = size * 2 + 1;
@@ -119,11 +123,14 @@ export default async function render(options: Options): Promise<SVGElement> {
     svgContent += `<g transform="scale(1, -1) translate(0, -${height * SCALE})">`;
   }
 
+  svgContent += `<g class="invader-pixels-wrapper">`;
+
   svgContent += getPixels(invader.grid, gap);
 
   if (animate) {
     svgContent += getPixels(invader.gridAnimation, gap, width);
   }
+  svgContent += `</g>`;
 
   if (showGrid) {
     svgContent += getGridLines(width, height);
