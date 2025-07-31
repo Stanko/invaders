@@ -2,7 +2,7 @@
 
 [https://muffinman.io/invaders/](https://muffinman.io/invaders/)
 
-A Space Invadersg generator I made for Creative Coding Amsterdam [code challenge](https://cca.codes/invaders.html).
+A Space Invaders generator I made for Creative Coding Amsterdam [code challenge](https://cca.codes/invaders.html).
 
 [![Space Invaders](./public/invaders.png)](https://muffinman.io/invaders/)
 
