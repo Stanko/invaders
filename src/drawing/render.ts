@@ -167,7 +167,7 @@ export default async function render(options: Options): Promise<SVGElement> {
   const iconElement = document.querySelector('link[rel="icon"]') as HTMLLinkElement;
   iconElement.setAttribute('href', iconDataUri);
 
-  // console.log(invader.toString());
+  console.log(invader.toString());
 
   return svgElement;
 }
