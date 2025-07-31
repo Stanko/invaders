@@ -33,13 +33,6 @@
 
 @font-face {
   font-family: 'Inconsolata';
-  src: url('/invaders/fonts/inconsolata/Inconsolata-VariableFont_wdth,wght.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Inconsolata';
   src: url('/invaders/fonts/inconsolata/Inconsolata-VariableFont_wdth_wght.woff2') format('woff2-variations');
   src: url('/invaders/fonts/inconsolata/Inconsolata-VariableFont_wdth_wght.woff2') format('woff2') tech('variations');
   font-weight: 100 900;

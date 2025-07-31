@@ -2,6 +2,16 @@
 
 body {
   background: #202125;
+  color: #eff1f4;
+  font-family:
+    'nope8', 'Inconsolata', ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono',
+    monospace;
+}
+
+h1 {
+  color: #6b788b;
+  text-align: center;
+  padding: 1rem 1rem 0;
 }
 
 .app {
