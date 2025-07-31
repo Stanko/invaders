@@ -53,7 +53,7 @@
 
   @include breakpoints.lg {
     padding-bottom: 4rem; // To move it up and balance visually
-    max-height: 40rem;
+    height: 40rem;
     /* Grid of invaders */
     /* grid-template-columns: repeat(12, 1fr); */
   }
