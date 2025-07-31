@@ -173,6 +173,25 @@ a {
   background: currentColor;
   width: 0.25rem;
   height: 0.25rem;
+
+  &:nth-child(2n) {
+    display: none;
+  }
+
+  @include breakpoints.md {
+    &:nth-child(2n) {
+      display: block;
+    }
+    &:nth-child(3n) {
+      display: none;
+    }
+  }
+
+  @include breakpoints.lg {
+    &:nth-child(3n) {
+      display: block;
+    }
+  }
 }
 
 .star--big {
