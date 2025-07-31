@@ -47,11 +47,11 @@ const buildUI = (controls: Controls<typeof config>) => {
   document.addEventListener('keypress', (e: KeyboardEvent) => {
     // Check if document.activeElement is not an input
     if (document.activeElement && document.activeElement.tagName.toLowerCase() !== 'input') {
-      e.preventDefault();
-
       if (e.key === 'c') {
+        e.preventDefault();
         document.body.classList.toggle('hide-controls');
       } else if (e.key === 'r') {
+        e.preventDefault();
         controls.randomize();
       }
     }
