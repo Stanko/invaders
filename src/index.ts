@@ -46,9 +46,7 @@ const buildUI = (controls: Controls<typeof config>) => {
   // Add global keyboard shortcuts
   document.addEventListener('keypress', (e: KeyboardEvent) => {
     // Check if document.activeElement is not an input
-    const inputs = ['input', 'button'];
-
-    if (document.activeElement && inputs.indexOf(document.activeElement.tagName.toLowerCase()) === -1) {
+    if (document.activeElement && document.activeElement.tagName.toLowerCase() !== 'input') {
       e.preventDefault();
 
       if (e.key === 'c') {
