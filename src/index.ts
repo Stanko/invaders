@@ -46,12 +46,12 @@ const buildUI = (controls: Controls<typeof config>) => {
   // Add global keyboard shortcuts
   document.addEventListener('keypress', (e: KeyboardEvent) => {
     // Check if document.activeElement is not an input
-    const inputs = ['input', 'select', 'button', 'textarea'];
+    const inputs = ['input', 'button'];
 
     if (document.activeElement && inputs.indexOf(document.activeElement.tagName.toLowerCase()) === -1) {
       e.preventDefault();
 
-      if (e.key === 's') {
+      if (e.key === 'c') {
         document.body.classList.toggle('hide-controls');
       } else if (e.key === 'r') {
         controls.randomize();
@@ -59,6 +59,11 @@ const buildUI = (controls: Controls<typeof config>) => {
     }
   });
 };
+
+const newButtonInNav = document.querySelector('.nav-new-button') as HTMLButtonElement;
+newButtonInNav.addEventListener('click', () => {
+  controls.randomize();
+});
 
 const draw = async () => {
   const options = controls.getOptions();

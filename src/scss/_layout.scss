@@ -5,9 +5,13 @@
   min-height: 100svh;
   display: flex;
   flex-direction: column;
+  max-width: 80rem;
+  margin-inline: auto;
 
   @include breakpoints.lg {
     flex-direction: row;
+    min-height: 0;
+    padding-block: 2rem;
   }
 }
 
@@ -19,13 +23,14 @@
   flex-direction: column;
   position: sticky;
   top: 0;
+  bottom: 0;
   min-height: 60vh;
   min-height: 60svh;
-  max-height: 80vh;
-  max-height: 80svh;
 
   @include breakpoints.lg {
     max-height: none;
+    min-height: 0;
+    padding: 2rem;
   }
 }
 
@@ -48,6 +53,7 @@
 
   @include breakpoints.lg {
     padding-bottom: 4rem; // To move it up and balance visually
+    max-height: 40rem;
     /* Grid of invaders */
     /* grid-template-columns: repeat(12, 1fr); */
   }
@@ -74,15 +80,25 @@
   z-index: 1;
 
   @include breakpoints.lg {
-    margin-top: 0;
+    margin: 2rem;
   }
 }
 
-.hide-controls .controls {
+.nav-new {
   display: none;
 }
 
-.hide-controls .drawing {
-  max-height: 100vh;
-  max-height: 100svh;
+.hide-controls {
+  .controls {
+    display: none;
+  }
+
+  .hide-controls .drawing {
+    max-height: 100vh;
+    max-height: 100svh;
+  }
+
+  .nav-new {
+    display: unset;
+  }
 }
