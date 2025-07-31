@@ -1,9 +1,16 @@
+@use 'sass:math';
+@use './breakpoints';
+
 *,
 *::before,
 *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--theme);
 }
 
 :root {
@@ -13,12 +20,62 @@
 
   --theme-oklch: var(--theme-l) var(--theme-c) var(--theme-h);
   --theme: oklch(var(--theme-oklch));
+
+  --gray-50: #eff1f4;
+  --gray-100: #dee3ea;
+  --gray-200: #bec7d5;
+  --gray-300: #9eacc2;
+  --gray-400: #8292a9;
+  --gray-500: #6b788b;
+
+  --bg: #202125;
+  --fg: #eff1f4;
+}
+
+html {
+  scrollbar-color: rgb(255 255 255 / 0.2) var(--bg);
 }
 
 body {
+  background: var(--bg);
+  color: var(--fg);
+
   font-family:
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
-  font-size: 1rem;
+    'nope8', 'Inconsolata', ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono',
+    monospace;
+  font-size: 1.25rem;
+
+  @include breakpoints.md {
+    font-size: 1.5rem;
+  }
+}
+
+h1,
+h2 {
+  color: var(--gray-400);
+  font-size: 2rem;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+
+  @include breakpoints.md {
+    font-size: 2.5rem;
+  }
+}
+
+h2 {
+  margin-bottom: 1rem;
+}
+
+p + h2 {
+  margin-top: 1em;
+}
+
+p {
+  line-height: 1.3;
+}
+
+p + p {
+  margin-top: 1em;
 }
 
 input,
@@ -42,6 +99,98 @@ button::-moz-focus-inner {
 svg {
   overflow: visible;
   display: block;
+}
+
+nav {
+  display: flex;
+  gap: 0.25rem;
+  justify-content: center;
+
+  a,
+  button {
+    color: var(--gray-200);
+    text-decoration: none;
+    border-radius: 4px;
+    padding: 0 0.25rem;
+
+    &:hover {
+      color: var(--gray-50);
+      text-decoration: 2px underline var(--theme);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--theme);
+      color: var(--gray-50);
+    }
+  }
+
+  span {
+    color: var(--theme);
+  }
+}
+
+a {
+  color: inherit;
+  color: oklch(0.7 0.15 var(--theme-h));
+  text-decoration-thickness: 2px;
+
+  &:hover {
+    color: var(--gray-50);
+    text-decoration: 2px underline var(--theme);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--theme);
+    color: var(--gray-50);
+  }
+}
+
+// Stars
+
+@keyframes star-animation {
+  0%,
+  1.1%,
+  100% {
+    opacity: 1;
+  }
+  0.1%,
+  1% {
+    opacity: 0;
+  }
+}
+
+.star {
+  animation-name: star-animation;
+  animation-iteration-count: infinite;
+  position: absolute;
+  color: #aeb3ba;
+  transform: translate(-50%, -50%);
+  background: currentColor;
+  width: 0.25rem;
+  height: 0.25rem;
+}
+
+.star--big {
+  width: 0.25rem;
+  height: 0.75rem;
+
+  &::before {
+    background: currentColor;
+    height: 0.25rem;
+    width: 0.75rem;
+    display: block;
+    top: 0.25rem;
+    left: -0.25rem;
+    position: absolute;
+    content: '';
+  }
+}
+
+@for $i from 1 through 18 {
+  .star:nth-child(#{$i}) {
+    animation-delay: math.random(30) + s;
+    animation-duration: math.random(30) + 30s;
+  }
 }
 
 // Invader

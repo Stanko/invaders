@@ -24,9 +24,9 @@ const getPixels = (grid: string[][], gap: number = 0, offset: number = 0) => {
   const c = document.documentElement.style.getPropertyValue('--theme-c');
   const h = document.documentElement.style.getPropertyValue('--theme-h');
 
-  const stroke = `oklch(${l} ${c} ${h})`;
+  const fill = `oklch(${l} ${c} ${h})`;
 
-  return [`<g class="invader-pixels" fill="${stroke}">`, pixels.join('\n'), '</g>'].join('\n');
+  return [`<g class="invader-pixels" fill="${fill}">`, pixels.join('\n'), '</g>'].join('\n');
 };
 
 const getHornTentacleContent = (items: HornTentacle[], name: string) => {

@@ -1,19 +1,5 @@
 @use 'breakpoints';
 
-body {
-  background: #202125;
-  color: #eff1f4;
-  font-family:
-    'nope8', 'Inconsolata', ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono',
-    monospace;
-}
-
-h1 {
-  color: #6b788b;
-  text-align: center;
-  padding: 1rem 1rem 0;
-}
-
 .app {
   min-height: 100vh;
   min-height: 100svh;
@@ -25,29 +11,43 @@ h1 {
   }
 }
 
-.controls {
-  margin-top: auto;
-  z-index: 1;
-
-  @include breakpoints.lg {
-    margin-top: 0;
-  }
-}
-
-.drawing {
+.content {
+  padding: 1rem 2rem 2rem;
   width: 100%;
   flex-grow: 1;
-  padding: 2rem;
+  display: flex;
+  flex-direction: column;
   position: sticky;
   top: 0;
-  display: grid;
-  place-items: center;
-
+  min-height: 60vh;
+  min-height: 60svh;
   max-height: 80vh;
   max-height: 80svh;
 
   @include breakpoints.lg {
     max-height: none;
+  }
+}
+
+.text {
+  padding-bottom: 2rem;
+  text-align: center;
+}
+
+.stars {
+  position: absolute;
+  overflow: hidden;
+  inset: 0;
+  z-index: -1;
+}
+
+.drawing {
+  display: grid;
+  place-items: center;
+  flex-grow: 1;
+
+  @include breakpoints.lg {
+    padding-bottom: 4rem; // To move it up and balance visually
     /* Grid of invaders */
     /* grid-template-columns: repeat(12, 1fr); */
   }
@@ -66,6 +66,15 @@ h1 {
 
     /* Grid of invaders */
     /* --invader-pixel: 0.3rem; */
+  }
+}
+
+.controls {
+  margin-top: auto;
+  z-index: 1;
+
+  @include breakpoints.lg {
+    margin-top: 0;
   }
 }
 

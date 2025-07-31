@@ -8,6 +8,8 @@ import setTitle from './utils/set-title';
 import '@stanko/dual-range-input/dist/index.css';
 import './scss/index.scss';
 import seedrandom from 'seedrandom';
+import { updateStars } from './utils/generate-stars';
+import { initDialog } from './utils/dialog';
 
 // Initialize options controls
 export const controls = new Controls(config);
@@ -18,6 +20,8 @@ const title = document.querySelector('title')?.textContent || '';
 // UI elements
 const controlsDiv = document.querySelector('.controls') as HTMLDivElement;
 const drawingDiv = document.querySelector('.drawing') as HTMLDivElement;
+const aboutDialog = document.querySelector('.dialog') as HTMLDialogElement;
+const aboutButton = document.querySelector('nav button') as HTMLDialogElement;
 
 const buildUI = (controls: Controls<typeof config>) => {
   controls.addToContainer(controlsDiv);
@@ -41,7 +45,10 @@ const buildUI = (controls: Controls<typeof config>) => {
 
   // Add global keyboard shortcuts
   document.addEventListener('keypress', (e: KeyboardEvent) => {
-    if (document.activeElement === document.body) {
+    // Check if document.activeElement is not an input
+    const inputs = ['input', 'select', 'button', 'textarea'];
+
+    if (document.activeElement && inputs.indexOf(document.activeElement.tagName.toLowerCase()) === -1) {
       e.preventDefault();
 
       if (e.key === 's') {
@@ -62,6 +69,10 @@ const draw = async () => {
   // Set unique favicon and title
   setTitle(options, title);
 
+  // Generate stars first, to keep the same positions
+  // (same values of the RNG)
+  updateStars(options.mainSeedRng);
+
   // Render the image
   const svg = await render(options);
 
@@ -72,6 +83,10 @@ const draw = async () => {
 
 // Redraw on options change
 controls.onChange = draw;
+
+// About dialog
+const { open } = initDialog(aboutDialog);
+aboutButton.addEventListener('click', open);
 
 // Initialize
 buildUI(controls);

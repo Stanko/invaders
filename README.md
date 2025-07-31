@@ -14,10 +14,6 @@ A Space Invadersg generator I made for Creative Coding Amsterdam [code challenge
 
 # TODO
 
-- Link to GitHub
-- Link to my blog
-- About modal
-- Help/shortcuts modal (?)
 - Generate 5 invaders and mock the game screen
 - Animate generation process
 - Handle out of bounds tentacles (?)
