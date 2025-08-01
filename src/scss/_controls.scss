@@ -117,7 +117,6 @@
 .controls-randomize,
 .controls-save {
   padding: 0.5rem 1rem;
-  margin-left: 6rem;
   background: var(--controls-button-bg);
   font-weight: 700;
 
@@ -127,7 +126,29 @@
   }
 }
 
+@keyframes download {
+  0%,
+  100% {
+    transform: none;
+  }
+  50% {
+    transform: translateY(-15%);
+  }
+}
+
+.controls-save {
+  &:focus-visible,
+  &:hover {
+    path:nth-child(1),
+    path:nth-child(3) {
+      animation: download 1000ms infinite;
+    }
+  }
+}
+
 .controls-randomize {
+  margin-left: 6rem;
+
   &:focus-visible,
   &:hover {
     svg {

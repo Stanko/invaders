@@ -30,14 +30,15 @@
 
   --bg: #202125;
   --fg: #eff1f4;
-
-  @include breakpoints.xl {
-    font-size: 1.25rem;
-  }
 }
 
 html {
   scrollbar-color: rgb(255 255 255 / 0.2) var(--bg);
+  font-size: 100%;
+
+  @include breakpoints.xl {
+    font-size: 125%;
+  }
 }
 
 body {
@@ -148,6 +149,14 @@ a {
     outline: 2px solid var(--theme);
     color: var(--gray-50);
   }
+}
+
+// Save
+
+.save-right {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
 }
 
 // Stars

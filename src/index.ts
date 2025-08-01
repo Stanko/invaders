@@ -1,8 +1,8 @@
-import { createElement, ImageDown } from 'lucide';
+import { createElement, Download } from 'lucide';
 import { Controls } from './controls/controls';
 import { config } from './drawing/options-config';
 import render from './drawing/render';
-import { downloadSVG } from './utils/download-svg';
+import { downloadPNG, downloadSVG } from './utils/download';
 import setTitle from './utils/set-title';
 
 import '@stanko/dual-range-input/dist/index.css';
@@ -26,14 +26,25 @@ const aboutButton = document.querySelector('nav button') as HTMLDialogElement;
 const buildUI = (controls: Controls<typeof config>) => {
   controls.addToContainer(controlsDiv);
 
-  // TODO
-  // It would be nice to add a way to add elements to the controls div
-  // and even group them together in one element with the randomize button
-  const saveButton = document.createElement('button');
-  saveButton.classList.add('controls-save', 'controls-btn');
-  saveButton.textContent = 'Save';
-  saveButton.appendChild(createElement(ImageDown));
-  saveButton.addEventListener('click', () => {
+  const saveRow = document.createElement('div');
+  saveRow.classList.add('control');
+
+  const saveLabel = document.createElement('span');
+  saveLabel.classList.add('control-label');
+  saveLabel.textContent = 'download';
+
+  const saveRight = document.createElement('div');
+  saveRight.classList.add('save-right');
+
+  saveRow.appendChild(saveLabel);
+  saveRow.appendChild(saveRight);
+
+  const saveSVG = document.createElement('button');
+  saveSVG.classList.add('controls-save', 'controls-btn');
+  saveSVG.textContent = 'SVG';
+  saveSVG.ariaLabel = 'Download SVG';
+  saveSVG.appendChild(createElement(Download));
+  saveSVG.addEventListener('click', () => {
     const svg = drawingDiv.querySelector('svg') as SVGElement;
     const options = controls.getOptions();
     const rng = seedrandom(window.location.hash);
@@ -41,7 +52,24 @@ const buildUI = (controls: Controls<typeof config>) => {
 
     downloadSVG(svg, `invader_${options.mainSeed}_${id}.svg`);
   });
-  controlsDiv.appendChild(saveButton);
+  const savePNG = document.createElement('button');
+  savePNG.classList.add('controls-save', 'controls-btn');
+  savePNG.textContent = 'PNG';
+  savePNG.ariaLabel = 'Download PNG';
+  savePNG.appendChild(createElement(Download));
+  savePNG.addEventListener('click', () => {
+    const svg = drawingDiv.querySelector('svg') as SVGElement;
+    const options = controls.getOptions();
+    const rng = seedrandom(window.location.hash);
+    const id = rng().toString(36).substring(2, 8);
+    const size = parseInt(svg.style.getPropertyValue('--invader-width'));
+
+    downloadPNG(svg, size, 40, `invader_${options.mainSeed}_${id}.png`);
+  });
+  saveRight.appendChild(saveSVG);
+  saveRight.appendChild(savePNG);
+
+  controlsDiv.appendChild(saveRow);
 
   // Add global keyboard shortcuts
   document.addEventListener('keypress', (e: KeyboardEvent) => {
