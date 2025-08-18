@@ -335,4 +335,13 @@ svg[data-state~='14--end'] {
 .timeline {
   display: flex;
   gap: 0.5rem;
+
+  button:hover {
+    color: oklch(0.8 var(--theme-c) var(--theme-h));
+  }
+
+  button.active {
+    text-decoration: underline;
+    color: oklch(0.7 0.6 var(--theme-h));
+  }
 }
