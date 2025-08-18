@@ -6,14 +6,22 @@ interface Point {
 export const SCALE = 20;
 
 const getCircle = (center: Point, r: number, props: Record<string, any> = {}) => {
-  const attributes = [];
+  const points = [];
+  const pointsCount = 36;
+  const step = (Math.PI * 2) / pointsCount;
 
-  for (const key in props) {
-    const value = props[key];
-    attributes.push(`${key}="${value}"`);
+  for (let i = 0; i < 36; i += 1) {
+    const angle = Math.PI / -2 + step * i;
+    const x = center.x + r * Math.cos(angle);
+    const y = center.y + r * Math.sin(angle);
+
+    points.push({
+      x,
+      y,
+    });
   }
 
-  return `<circle cx="${(center.x * SCALE).toFixed(2)}" cy="${(center.y * SCALE).toFixed(2)}" r="${r * SCALE}" ${attributes.join(' ')} />`;
+  return getPath(points, true, props);
 };
 
 const getRect = (topLeft: Point, size: Point, props: Record<string, any> = {}) => {

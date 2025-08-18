@@ -3,6 +3,7 @@ import svgUtils, { SCALE } from '../utils/svg-utils';
 import type { Options } from '../utils/options-type';
 import type { HornTentacle } from './invader';
 import Vec from '../utils/vec';
+import { renderStepByStep } from './step-by-step';
 
 const getPixels = (grid: string[][], gap: number = 0, offset: number = 0) => {
   const size = 1 - gap * 2;
@@ -29,21 +30,25 @@ const getPixels = (grid: string[][], gap: number = 0, offset: number = 0) => {
   return [`<g class="invader-pixels" fill="${fill}">`, pixels.join('\n'), '</g>'].join('\n');
 };
 
-const getHornTentacleContent = (items: HornTentacle[], name: string) => {
+const getHornTentacleContent = (items: HornTentacle[], name: string, animate: boolean = false) => {
+  const midLineColor = animate ? 'rgb(251 117 253 / 0.8)' : 'rgb(117 251 253 / 0.8)';
+
   let content = '';
   const plural = name + 's';
 
   // Outlines
-  content += `<g class="invader-${plural}" stroke="rgb(255 255 255 / 0.8)" fill="none">`;
-  items.forEach((item) => {
-    content += svgUtils.getPath(item.fatLine, true, {
-      class: `invader-${name}`,
+  if (!animate) {
+    content += `<g class="invader-${plural}" stroke="rgb(255 255 255 / 0.8)" fill="none">`;
+    items.forEach((item) => {
+      content += svgUtils.getPath(item.fatLine, true, {
+        class: `invader-${name}`,
+      });
     });
-  });
-  content += '</g>';
+    content += '</g>';
+  }
 
   // Lines
-  content += `<g class="invader-${name}-lines" stroke="rgb(117 251 253 / 0.8)" fill="none">`;
+  content += `<g class="invader-${name}-lines" stroke="${midLineColor}" fill="none">`;
   items.forEach((item) => {
     content += svgUtils.getPath(item.line, false, {
       class: `invader-${name}-line`,
@@ -52,7 +57,7 @@ const getHornTentacleContent = (items: HornTentacle[], name: string) => {
   content += '</g>';
 
   // Points
-  content += `<g class="invader-${name}-points" fill="rgb(117 251 253 / 0.8)">`;
+  content += `<g class="invader-${name}-points" fill="${midLineColor}">`;
   items.forEach((item) => {
     item.line.forEach((point) => {
       content += svgUtils.getCircle(point, 0.12, {
@@ -65,7 +70,7 @@ const getHornTentacleContent = (items: HornTentacle[], name: string) => {
   return content;
 };
 
-const getGridLines = (width: number, height: number) => {
+export const getGridLines = (width: number, height: number, stroke: string = '#515256') => {
   const d = [];
 
   for (let i = 0; i <= width; i++) {
@@ -76,7 +81,7 @@ const getGridLines = (width: number, height: number) => {
     d.push(`M 0 ${j * SCALE} h ${width * SCALE}`);
   }
 
-  return `<path d="${d.join(' ')}" class="invader-grid" stroke="#515256" />`;
+  return `<path d="${d.join(' ')}" class="invader-grid" stroke="${stroke}" />`;
 };
 
 export default async function render(options: Options): Promise<SVGElement> {
@@ -144,19 +149,24 @@ export default async function render(options: Options): Promise<SVGElement> {
       stroke: 'rgb(255 255 255 / 0.8)',
     });
 
+    if (animate) {
+      svgContent += getHornTentacleContent(invader.hornsAnimation, 'animation-horn', true);
+      svgContent += getHornTentacleContent(invader.tentaclesAnimation, 'animation-tentacle', true);
+    }
+
     svgContent += getHornTentacleContent(invader.horns, 'horn');
     svgContent += getHornTentacleContent(invader.tentacles, 'tentacle');
-
-    // Commented out on purpose
-    // It creates noise and it is only useful for the animation debugging
-    // svgContent += getHornTentacleContent(invader.hornsAnimation, 'animation-horn');
-    // svgContent += getHornTentacleContent(invader.tentaclesAnimation, 'animation-tentacle');
 
     svgContent += `</g>`;
   }
 
   if (flip) {
     svgContent += `</g>`;
+  }
+
+  // Step by step debug
+  if (debug && new URLSearchParams(window.location.search).get('step') !== null) {
+    svgContent = renderStepByStep(options, invader);
   }
 
   svgElement.innerHTML = svgContent;

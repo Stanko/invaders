@@ -23,4 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 
+step-by-step.js
+
 invaders-backup

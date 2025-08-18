@@ -10,6 +10,8 @@ import './scss/index.scss';
 import seedrandom from 'seedrandom';
 import { updateStars } from './utils/generate-stars';
 import { initDialog } from './utils/dialog';
+import { prepareStepByStepAnimation } from './drawing/step-by-step';
+import { getTimelineElement } from './drawing/get-timeline-element';
 
 // Initialize options controls
 export const controls = new Controls(config);
@@ -73,15 +75,20 @@ const buildUI = (controls: Controls<typeof config>) => {
 
   // Add global keyboard shortcuts
   document.addEventListener('keypress', (e: KeyboardEvent) => {
-    // Check if document.activeElement is not an input
-    if (document.activeElement && document.activeElement.tagName.toLowerCase() !== 'input') {
-      if (e.key === 'c') {
-        e.preventDefault();
-        document.body.classList.toggle('hide-controls');
-      } else if (e.key === 'r') {
-        e.preventDefault();
-        controls.randomize();
-      }
+    // Check if document.activeElement is not a text input
+    const active = document.activeElement;
+    const isTextInput = active && active instanceof HTMLInputElement && active.type === 'text';
+
+    if (isTextInput) {
+      return;
+    }
+
+    if (e.key === 'c') {
+      e.preventDefault();
+      document.body.classList.toggle('hide-controls');
+    } else if (e.key === 'r') {
+      e.preventDefault();
+      controls.randomize();
     }
   });
 };
@@ -110,6 +117,12 @@ const draw = async () => {
   drawingDiv.replaceChildren(svg);
   // Grid of invaders
   // drawingDiv.append(svg);
+
+  // Step by step debug
+  if (options.debug && new URLSearchParams(window.location.search).get('step') !== null) {
+    const { offsets, jumpTo } = prepareStepByStepAnimation(svg);
+    drawingDiv.appendChild(getTimelineElement(offsets, jumpTo));
+  }
 };
 
 // Redraw on options change

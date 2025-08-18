@@ -261,3 +261,78 @@ a {
     fill: rgb(255 255 255 / 0.3);
   }
 }
+
+// ----- BLOG POST ----- //
+
+svg path {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+svg path,
+svg rect {
+  transition: opacity 500ms;
+}
+
+svg[data-state~='4--end'],
+svg[data-state~='5'] {
+  .body-point {
+    opacity: 0;
+  }
+}
+
+svg[data-state~='7'] {
+  .tentacle-point {
+    opacity: 0;
+  }
+}
+
+svg[data-state~='8'] {
+  .normal-point {
+    opacity: 0;
+  }
+}
+
+svg[data-state~='8--end'],
+svg[data-state~='9'] {
+  .tentacle-mid-path,
+  .normal-point,
+  .normal-path {
+    opacity: 0;
+  }
+}
+
+svg[data-state~='11--end'],
+svg[data-state~='12'] {
+  .body-rect-center {
+    opacity: 0;
+  }
+}
+
+svg[data-state~='12'] {
+  .body-path {
+    opacity: 0;
+  }
+}
+
+svg[data-state~='13'] {
+  .other-tentancle-path,
+  .tentancle-path,
+  .horn-path {
+    opacity: 0;
+  }
+}
+
+svg[data-state~='14--end'] {
+  .body-rect--o,
+  .body-rect--z,
+  .horn-tentacle-rect--o,
+  .horn-tentacle-rect--z {
+    opacity: 0;
+  }
+}
+
+.timeline {
+  display: flex;
+  gap: 0.5rem;
+}

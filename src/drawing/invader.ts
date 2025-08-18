@@ -191,6 +191,7 @@ export class Invader {
     // --- Eyes
     const mid = top + (bottom - top) / 2;
     const eyes = this.getEyes();
+
     eyes(grid, random(mid - 1, mid + 1, options.eyesRng, 0));
     eyes(gridAnimation, random(mid - 1, mid + 1, options.eyesRng, 0));
   }
@@ -199,7 +200,7 @@ export class Invader {
 
   eye(grid: string[][], x: number, y: number) {
     this.paint(grid, x, y, 'o');
-    this.paint4(grid, x, y, 'x');
+    this.paint4(grid, x, y, 'z');
   }
 
   getEyes() {
@@ -264,7 +265,7 @@ export class Invader {
       baseLine.push(new Vec(x, y));
     }
 
-    return this.baseLineToFatLine(baseLine, 0.3);
+    return this.baseLineToFatLine(baseLine, 0.25);
   }
 
   getSideTentaclesAnimation(baseLine: Vec[]): HornTentacle[] {
@@ -345,11 +346,11 @@ export class Invader {
       baseLine.push(next);
 
       current = next;
-      angle = random(-1, 0, null, 0) * Math.PI * 0.5 + Math.PI * 0.25;
+      angle = random(-1, 0, null, 0) * random(0, 0.5) * Math.PI + Math.PI;
       r = random(1, 2, null, 0);
     }
 
-    return this.baseLineToFatLine(baseLine, 0.3);
+    return this.baseLineToFatLine(baseLine, 0.25);
   }
 
   getHornsAnimation(leftHorn: Vec[]): HornTentacle[] {
