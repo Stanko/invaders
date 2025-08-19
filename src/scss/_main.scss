@@ -248,7 +248,8 @@ a {
   animation: invader-animation 1000ms infinite steps(1);
 }
 
-.invader--debug .invader-pixel--l {
+// Don't paint them differently in the gallery
+.drawing .invader--debug .invader-pixel--l {
   fill: oklch(calc(var(--theme-l) * 0.8) calc(var(--theme-c) * 0.6) var(--theme-h));
 }
 
