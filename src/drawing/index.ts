@@ -1,5 +1,6 @@
 import { Invader } from './invader';
 import type { Options } from '../utils/options-type';
+import { getKey } from '../utils/get-key';
 
 const MAX_CACHE = 20;
 const cache: Record<string, Invader> = {};
@@ -9,10 +10,7 @@ export default async function getDrawingData(options: Options) {
 
   const width = size * 2 + 1;
 
-  // All other options are used only for render
-  const key = [options.size, options.mainSeed, options.split, options.lineThickness, options.color, options.eyes].join(
-    '-',
-  );
+  const key = getKey(options);
 
   // Get from cache
   if (cache[key]) {

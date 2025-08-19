@@ -4,6 +4,9 @@ import type { Options } from '../utils/options-type';
 import type { HornTentacle } from './invader';
 import Vec from '../utils/vec';
 import { renderStepByStep } from './step-by-step';
+import { Gallery } from '../utils/gallery';
+
+const invaderHistory = new Gallery();
 
 const getPixels = (grid: string[][], gap: number = 0, offset: number = 0) => {
   const size = 1 - gap * 2;
@@ -176,6 +179,9 @@ export default async function render(options: Options): Promise<SVGElement> {
   const iconDataUri = `data:image/svg+xml;base64,${btoa(svgIcon.outerHTML)}`;
   const iconElement = document.querySelector('link[rel="icon"]') as HTMLLinkElement;
   iconElement.setAttribute('href', iconDataUri);
+
+  // Set history
+  invaderHistory.add(options, svgIcon);
 
   console.log(invader.toString());
 

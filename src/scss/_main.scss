@@ -262,6 +262,39 @@ a {
   }
 }
 
+// Gallery
+
+.gallery {
+  --invader-pixel: 5px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 1rem;
+
+  @include breakpoints.md {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @include breakpoints.lg {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  a {
+    display: grid;
+    place-items: center;
+    border-radius: 4px;
+    z-index: 0;
+    position: relative;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  svg {
+    max-width: calc(var(--invader-width) * var(--invader-pixel));
+  }
+}
+
 // ----- BLOG POST ----- //
 
 svg path {

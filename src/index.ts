@@ -1,17 +1,17 @@
 import { createElement, Download } from 'lucide';
+import seedrandom from 'seedrandom';
 import { Controls } from './controls/controls';
+import './drawing/dialogs';
+import { getTimelineElement } from './drawing/get-timeline-element';
 import { config } from './drawing/options-config';
 import render from './drawing/render';
+import { prepareStepByStepAnimation } from './drawing/step-by-step';
 import { downloadPNG, downloadSVG } from './utils/download';
+import { updateStars } from './utils/generate-stars';
 import setTitle from './utils/set-title';
 
 import '@stanko/dual-range-input/dist/index.css';
 import './scss/index.scss';
-import seedrandom from 'seedrandom';
-import { updateStars } from './utils/generate-stars';
-import { initDialog } from './utils/dialog';
-import { prepareStepByStepAnimation } from './drawing/step-by-step';
-import { getTimelineElement } from './drawing/get-timeline-element';
 
 // Initialize options controls
 export const controls = new Controls(config);
@@ -22,8 +22,6 @@ const title = document.querySelector('title')?.textContent || '';
 // UI elements
 const controlsDiv = document.querySelector('.controls') as HTMLDivElement;
 const drawingDiv = document.querySelector('.drawing') as HTMLDivElement;
-const aboutDialog = document.querySelector('.dialog') as HTMLDialogElement;
-const aboutButton = document.querySelector('nav button') as HTMLDialogElement;
 
 const buildUI = (controls: Controls<typeof config>) => {
   controls.addToContainer(controlsDiv);
@@ -127,10 +125,6 @@ const draw = async () => {
 
 // Redraw on options change
 controls.onChange = draw;
-
-// About dialog
-const { open } = initDialog(aboutDialog);
-aboutButton.addEventListener('click', open);
 
 // Initialize
 buildUI(controls);

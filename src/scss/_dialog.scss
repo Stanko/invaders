@@ -107,7 +107,7 @@ html.no-scroll {
 
   h2,
   span {
-    color: oklch(0.7 0.15 var(--theme-h));
+    color: oklch(0.7 var(--theme-c) var(--theme-h));
   }
 }
 
@@ -123,23 +123,21 @@ html.no-scroll {
 }
 
 .dialog-close-form {
-  position: absolute;
-  top: 2.25rem;
-  right: 2rem;
-
-  @include breakpoints.lg {
-    top: 3.25rem;
-    right: 3rem;
-  }
+  position: sticky;
+  top: 0;
+  right: 0;
+  float: right;
+  z-index: 1;
 }
 
 .dialog-close-button {
   display: flex;
-  padding: 0 0.25rem;
+  padding: 0.5rem;
   border-radius: 4px;
   align-items: center;
   gap: 0.5rem;
   color: var(--gray-400);
+  background: rgb(32 33 37 / 0.8);
 }
 
 .dialog-close-button:hover {
