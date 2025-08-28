@@ -138,3 +138,9 @@ if (import.meta.env.PROD) {
 
   document.body.appendChild(gc);
 }
+
+if (document.body.classList.contains('iframe')) {
+  setInterval(() => {
+    controls.randomize();
+  }, 1000);
+}

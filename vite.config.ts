@@ -9,6 +9,12 @@ export default defineConfig({
   build: {
     outDir: './docs',
     emptyOutDir: true,
+    rollupOptions: {
+      input: {
+        index: './index.html',
+        iframe: './iframe.html',
+      },
+    },
   },
   base: '/invaders/',
 });
