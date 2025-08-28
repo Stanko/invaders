@@ -145,5 +145,21 @@
 
       <button tabindex="-1" class="dialog-backdrop" />
     </dialog>
+
+    <style>
+      .iframe .content {
+        padding: 0;
+      }
+      @media (max-height: 300px) {
+        .drawing svg {
+          --invader-pixel: 0.4rem;
+        }
+      }
+      @media (min-height: 301px) and (max-height: 450px) {
+        .drawing svg {
+          --invader-pixel: 0.6rem;
+        }
+      }
+    </style>
   </body>
 </html>

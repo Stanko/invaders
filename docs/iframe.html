@@ -12,8 +12,8 @@
 
     <meta name="description" content="A Space Invaders generator made for CCA code challenge" />
 
-    <script type="module" crossorigin src="/invaders/assets/index-BtTidFsS.js"></script>
-    <link rel="stylesheet" crossorigin href="/invaders/assets/index-BujI8isK.css">
+    <script type="module" crossorigin src="/invaders/assets/index-41FV5c1s.js"></script>
+    <link rel="stylesheet" crossorigin href="/invaders/assets/index-Bof5h92R.css">
   </head>
 
   <body class="iframe">
@@ -146,5 +146,21 @@
 
       <button tabindex="-1" class="dialog-backdrop" />
     </dialog>
+
+    <style>
+      .iframe .content {
+        padding: 0;
+      }
+      @media (max-height: 300px) {
+        .drawing svg {
+          --invader-pixel: 0.4rem;
+        }
+      }
+      @media (min-height: 301px) and (max-height: 450px) {
+        .drawing svg {
+          --invader-pixel: 0.6rem;
+        }
+      }
+    </style>
   </body>
 </html>
