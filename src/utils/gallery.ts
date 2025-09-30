@@ -1,4 +1,3 @@
-import { closeGallery } from '../drawing/dialogs';
 import { getKey } from './get-key';
 import type { Options } from './options-type';
 
@@ -34,13 +33,6 @@ export class Gallery {
     }
 
     this.galleryElement.innerHTML = content.join('');
-
-    this.galleryElement.addEventListener('click', (e) => {
-      const target = e.target as HTMLElement;
-      if (target !== this.galleryElement) {
-        closeGallery();
-      }
-    });
   }
 
   add(options: Options, svg: SVGElement) {

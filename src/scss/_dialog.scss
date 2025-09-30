@@ -1,107 +1,21 @@
 @use './breakpoints';
 
-html.no-scroll {
-  overflow: hidden;
-  touch-action: none;
+.nano-modal {
+  --nm-radius: 0;
+  --nm-max-width: 50rem;
 }
 
-.dialog {
-  padding: 6rem 0 0 0;
-  margin: 0;
-  width: 100%;
-  height: 100%;
-  max-width: 100%;
-  max-height: 100%;
-  border: none;
-  background: none;
-  overflow: hidden;
-  transition:
-    display 400ms allow-discrete,
-    overlay 400ms allow-discrete;
-  touch-action: auto;
-  outline: none;
-
-  /* Needed for Safari */
-  position: fixed;
-  inset: 0;
-
-  @include breakpoints.md {
-    padding: 4rem;
-  }
-}
-
-.dialog[open] {
-  opacity: 1;
-  display: flex;
-
-  @starting-style {
-    opacity: 0;
-  }
-}
-
-.dialog::backdrop {
-  display: none;
-}
-
-.dialog button {
-  &:focus-visible {
-    outline: 2px solid var(--theme);
-  }
-}
-
-.dialog-backdrop {
-  background-color: rgb(0 0 0 / 0.6);
-  backdrop-filter: blur(10px);
-  transition: opacity 400ms;
-  opacity: 0;
-  will-change: opacity;
-  position: fixed;
-  z-index: 0;
-  inset: 0;
-  z-index: -1;
-}
-
-.dialog[open] .dialog-backdrop {
-  opacity: 1;
-
-  @starting-style {
-    opacity: 0;
-  }
-}
-
-.dialog-content {
-  z-index: 1;
-  width: 100%;
-  max-height: 100%;
-  margin: auto auto 0;
-  overflow: hidden;
+.nano-modal__content {
   background-color: var(--bg);
   color: var(--fg);
-  transition:
-    display 300ms allow-discrete,
-    overlay 300ms allow-discrete,
-    transform 300ms,
-    opacity 300ms;
-  scrollbar-width: auto;
   padding: 2rem;
-  overflow: auto;
-  scrollbar-width: thin;
   border-top: 1px solid rgb(255 255 255 / 0.1);
-
-  /* Collapsed styles */
-  opacity: 0;
-  display: none;
-  transform: translateY(4rem);
-  will-change: transform;
 
   @include breakpoints.md {
     border: 1px solid rgb(255 255 255 / 0.1);
-    margin: 0 auto;
-    align-self: center;
   }
 
   @include breakpoints.lg {
-    max-width: 50rem;
     padding: 3rem;
   }
 
@@ -111,33 +25,16 @@ html.no-scroll {
   }
 }
 
-.dialog[open] .dialog-content {
-  display: block;
-  transform: none;
-  opacity: 1;
-
-  @starting-style {
-    transform: translateY(4rem);
-    opacity: 0;
-  }
-}
-
-.dialog-close-form {
-  position: sticky;
-  top: 0;
-  right: 0;
-  float: right;
-  z-index: 1;
-}
-
-.dialog-close-button {
+.nano-modal__close-button.dialog-close-button {
+  margin-top: -0.25rem;
   display: flex;
-  padding: 0.5rem;
+  padding: 0.5rem 0.75rem;
   border-radius: 4px;
   align-items: center;
   gap: 0.5rem;
   color: var(--gray-400);
   background: rgb(32 33 37 / 0.8);
+  backdrop-filter: blur(10px);
 }
 
 .dialog-close-button:hover {
@@ -145,11 +42,9 @@ html.no-scroll {
 }
 
 .dialog-close-button:focus-visible {
-  outline: var(--px) solid currentColor;
-  outline-offset: var(--px);
 }
 
-.dialog-close-form svg {
+.dialog-close-button svg {
   height: 1rem;
   margin-top: -0.125rem;
 }

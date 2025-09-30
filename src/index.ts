@@ -1,7 +1,7 @@
+import { init as initNano } from '@stanko/nano-modal';
 import { createElement, Download } from 'lucide';
 import seedrandom from 'seedrandom';
 import { Controls } from './controls/controls';
-import './drawing/dialogs';
 import { getTimelineElement } from './drawing/get-timeline-element';
 import { config } from './drawing/options-config';
 import render from './drawing/render';
@@ -11,10 +11,14 @@ import { updateStars } from './utils/generate-stars';
 import setTitle from './utils/set-title';
 
 import '@stanko/dual-range-input/dist/index.css';
+import '@stanko/nano-modal/dist/nano-modal.css';
 import './scss/index.scss';
 
 // Initialize options controls
 export const controls = new Controls(config);
+
+// Init modals
+initNano();
 
 // Get title from the HTML
 const title = document.querySelector('title')?.textContent || '';

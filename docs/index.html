@@ -12,8 +12,8 @@
 
     <meta name="description" content="A Space Invaders generator made for CCA code challenge" />
 
-    <script type="module" crossorigin src="/invaders/assets/index-2Wy5nHLA.js"></script>
-    <link rel="stylesheet" crossorigin href="/invaders/assets/index-NcBWdcYu.css">
+    <script type="module" crossorigin src="/invaders/assets/index-DaI8wgqJ.js"></script>
+    <link rel="stylesheet" crossorigin href="/invaders/assets/index-BgbkFYac.css">
   </head>
 
   <body>
@@ -22,11 +22,11 @@
         <div class="text">
           <h1>Space Invaders Generator</h1>
           <nav>
-            <button class="nav-about-button">About</button>
+            <button class="nav-about-button" data-nm-open="dialog-about">About</button>
             <span aria-hidden="true">&bull;</span>
             <a href="https://muffinman.io/blog/invaders">How it works</a>
             <span aria-hidden="true">&bull;</span>
-            <button class="nav-gallery-button">Gallery</button>
+            <button class="nav-gallery-button" data-nm-open="dialog-gallery">Gallery</button>
             <span class="nav-new" aria-hidden="true">&bull;</span>
             <button class="nav-new nav-new-button">New</button>
           </nav>
@@ -56,10 +56,12 @@
       <div class="controls"></div>
     </main>
 
-    <dialog class="dialog dialog--about">
-      <div class="dialog-content">
-        <form class="dialog-close-form" method="dialog">
-          <button class="dialog-close-button">
+    <div class="nano-modal__backdrop"></div>
+
+    <dialog class="nano-modal nano-modal--base dialog dialog--about" id="dialog-about">
+      <div class="nano-modal__wrapper">
+        <div class="nano-modal__content">
+          <button class="dialog-close-button nano-modal__close-button" data-nm-close>
             Close
             <svg viewBox="0 0 5 5" fill="currentColor">
               <rect x="0" y="0" width="1" height="1" />
@@ -73,55 +75,53 @@
               <rect x="0" y="4" width="1" height="1" />
             </svg>
           </button>
-        </form>
 
-        <div>
-          <h2>What is this?</h2>
-          <p>
-            A Space Invaders generator I made for the Creative Coding Amsterdam
-            <a href="https://cca.codes/invaders.html">code challenge</a>. It is written in TypeScript and
-            <a href="https://github.com/Stanko/invaders">open source</a>.
-          </p>
+          <div>
+            <h2>What is this?</h2>
+            <p>
+              A Space Invaders generator I made for the Creative Coding Amsterdam
+              <a href="https://cca.codes/invaders.html">code challenge</a>. It is written in TypeScript and
+              <a href="https://github.com/Stanko/invaders">open source</a>.
+            </p>
 
-          <p>To share the invader you generated, just copy the URL.</p>
+            <p>To share the invader you generated, just copy the URL.</p>
 
-          <h2>Why?</h2>
-          <p>For fun of course... and galactic domination too!</p>
+            <h2>Why?</h2>
+            <p>For fun of course... and galactic domination too!</p>
 
-          <h2>How?</h2>
-          <p>Turning on debug mode will probably give you an idea, but I'll try to summarize.</p>
-          <p>
-            I first generate a vector polygon for the body. Then I take the lowest side point of the polygon and extend
-            a zig-zag line from it. I "inflate" that line to create a tentacle. Horns are made in a similar way. Since
-            they're symmetrical, I only generate one side and mirror it.
-          </p>
-          <p>
-            Next, I rasterize the vector shapes onto a pixel grid. Finally, I slap a pair of pre-made eyes on top - and
-            voilà, we've got ourselves an invader!
-          </p>
-          <p>I wrote <a href="">an interactive blog post</a> on how it works, I hope you'll check it out!</p>
+            <h2>How?</h2>
+            <p>Turning on debug mode will probably give you an idea, but I'll try to summarize.</p>
+            <p>
+              I first generate a vector polygon for the body. Then I take the lowest side point of the polygon and
+              extend a zig-zag line from it. I "inflate" that line to create a tentacle. Horns are made in a similar
+              way. Since they're symmetrical, I only generate one side and mirror it.
+            </p>
+            <p>
+              Next, I rasterize the vector shapes onto a pixel grid. Finally, I slap a pair of pre-made eyes on top -
+              and voilà, we've got ourselves an invader!
+            </p>
+            <p>I wrote <a href="">an interactive blog post</a> on how it works, I hope you'll check it out!</p>
 
-          <h2>Keyboard shortcuts</h2>
-          <p>
-            * <span>C</span> - toggle controls<br />
-            * <span>R</span> - randomize (get a new invader)
-          </p>
+            <h2>Keyboard shortcuts</h2>
+            <p>
+              * <span>C</span> - toggle controls<br />
+              * <span>R</span> - randomize (get a new invader)
+            </p>
 
-          <h2>Shameless self promotion</h2>
-          <p>
-            If you like my invaders, you might want to check my <a href="https://muffinman.io">blog</a> for more
-            projects.
-          </p>
+            <h2>Shameless self promotion</h2>
+            <p>
+              If you like my invaders, you might want to check my <a href="https://muffinman.io">blog</a> for more
+              projects.
+            </p>
+          </div>
         </div>
       </div>
-
-      <button tabindex="-1" class="dialog-backdrop" />
     </dialog>
 
-    <dialog class="dialog dialog--gallery">
-      <div class="dialog-content">
-        <form class="dialog-close-form" method="dialog">
-          <button class="dialog-close-button">
+    <dialog class="nano-modal nano-modal--base dialog dialog--gallery" id="dialog-gallery">
+      <div class="nano-modal__wrapper">
+        <div class="nano-modal__content">
+          <button class="dialog-close-button nano-modal__close-button" data-nm-close>
             Close
             <svg viewBox="0 0 5 5" fill="currentColor">
               <rect x="0" y="0" width="1" height="1" />
@@ -135,16 +135,14 @@
               <rect x="0" y="4" width="1" height="1" />
             </svg>
           </button>
-        </form>
 
-        <div>
-          <h2>Gallery</h2>
-          <p>The last 24 invaders you generated. Press "r" to generate more.</p>
-          <div class="gallery"></div>
+          <div>
+            <h2>Gallery</h2>
+            <p>The last 24 invaders you generated. Press "r" to generate more.</p>
+            <div class="gallery"></div>
+          </div>
         </div>
       </div>
-
-      <button tabindex="-1" class="dialog-backdrop" />
     </dialog>
   </body>
 </html>
