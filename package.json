@@ -21,12 +21,12 @@
   },
   "devDependencies": {
     "sass": "^1.93.2",
-    "typescript": "~5.9.2",
+    "typescript": "~5.9.3",
     "vite": "^7.1.7"
   },
   "dependencies": {
     "@stanko/dual-range-input": "^1.0.1",
-    "@stanko/nano-modal": "^0.1.3",
+    "@stanko/nano-modal": "^0.2.1",
     "@types/seedrandom": "^3.0.8",
     "animejs": "^4.2.0",
     "bezier-easing": "^2.1.0",

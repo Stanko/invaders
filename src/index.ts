@@ -11,7 +11,8 @@ import { updateStars } from './utils/generate-stars';
 import setTitle from './utils/set-title';
 
 import '@stanko/dual-range-input/dist/index.css';
-import '@stanko/nano-modal/dist/nano-modal.css';
+import '@stanko/nano-modal/style.css';
+import '@stanko/nano-modal/base-theme.css';
 import './scss/index.scss';
 
 // Initialize options controls

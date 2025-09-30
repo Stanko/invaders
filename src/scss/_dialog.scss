@@ -1,6 +1,6 @@
 @use './breakpoints';
 
-.nano-modal {
+:root {
   --nm-radius: 0;
   --nm-max-width: 50rem;
 }
@@ -25,7 +25,7 @@
   }
 }
 
-.nano-modal__close-button.dialog-close-button {
+.dialog-close-button {
   margin-top: -0.25rem;
   display: flex;
   padding: 0.5rem 0.75rem;
